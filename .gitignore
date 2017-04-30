@@ -1,8 +1,0 @@
-node_modules
-config.json
-launch.command
-profiles.sqlite
-media
-.DS_Store
-.eslintrc.json
-.gitignore
