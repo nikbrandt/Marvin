@@ -98,20 +98,5 @@ module.exports = {
     if (command == 'smchannel') {
       message.channel.sendMessage(smChannel);
     }
-  },
-  cleverbot: function(command, message) {
-    if (command == 'cb' || command == 'cleverbot' || command == 'clever') {
-      let cleverQ = message.content.slice(command.length + 2)
-      // cleverbot-node
-      cleverbot.write(cleverQ, function (response) {
-         message.channel.sendMessage(response.output);
-      });
-      // cleverbot.io
-      clever.create(function (err, session) {
-        clever.ask(cleverQ, function (err, response) {
-          message.channel.sendMessage(response);
-        });
-      });
-    };
   }
 }

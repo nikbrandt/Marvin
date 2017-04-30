@@ -1,10 +1,10 @@
  // bot creation
 const Discord = require('discord.js');
-const bot = new Discord.Client(); /*
+const bot = new Discord.Client();
  // cleverbot.io
 const cleverbot = require('cleverbot.io');
 const clever = new cleverbot('cPzDw3MhlM6GfbxU','P9mRGnXV6JKydmqJkitVHp4WLuJVLeT6');
-clever.setNick('marvin'); */
+clever.setNick('Marvin');
  // config access
 const config = require("./config.json");
  // sql access
@@ -67,6 +67,7 @@ bot.on('message', message => {
   coms1.calc(command, message, suffix, bot);
   coms1.ss(command, message, args);
   coms1.xkcd(command, message, bot, args);
+  coms1.cleverbot(command, message, suffix, clever);
   help.help(command, message, bot, suffix);
 });
 
