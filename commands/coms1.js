@@ -105,7 +105,7 @@ module.exports = {
     }
   },
   airhorn: function(command, message, args) {
-    if (command == 'airhorn') {
+    if (command == 'airhorn' || command == 'ah') {
       const channel = message.member.voiceChannel;
       if (!message.member.voiceChannel) {
         message.channel.sendMessage('You need to be in a voice channel for me to play sounds');

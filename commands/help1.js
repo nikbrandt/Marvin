@@ -96,7 +96,7 @@ module.exports = {
       description: '*Quite the Paranoid Android*',
       fields: [{
         name: 'Quick Replies',
-        value: '`.marvin` - Get random info about the bot \n`.lenny` - Here I am, brain the size of a planet, posting lennies on discord. \n`.L` - Make an L of L\'s (Stolen from 0kx because his bot went down) \n`.invite` - Invite me to your server \n`.8ball` - Use the magic 8 ball to find the true answer.. \n`.leet` or `.l33t` - Convert your text to |_[-[-+ $|*[-/-|< (leet speak)'
+        value: '`.marvin` - Get random info about the bot \n`.lenny` - Here I am, brain the size of a planet, posting lennies on discord. \n`.L` - Make an L of L\'s (Stolen from 0kx because his bot went down) \n`.invite` - Invite me to your server'
       },
       {
         name: 'Bot Interactions',
@@ -104,7 +104,7 @@ module.exports = {
       },
       {
         name: 'API',
-        value: '`.8ball` - Obviously the most trustworthy source for questions too your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \n`.cat` or `.kitty` - INSTANT CUTENESS!'
+        value: '`.8ball` - Obviously the most trustworthy source for answers for your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \n`.cat` or `.kitty` - INSTANT CUTENESS!'
       },
       {
         name: 'Other',
