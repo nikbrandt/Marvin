@@ -103,16 +103,16 @@ module.exports = {
         value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.game <game>` - Change the bot\'s game. (Has a decent rate limit)\n`.joke <add>` Say or add a joke'
       },
       {
-        name: 'Coming Soon',
-        value: '`.profile <setting/view> <status/bio/server/websites/contact/location/gender/age/birthday|@username#0000> <data>` - View someone\'s profile or create your own (Might take a while to develop)\nAll of OkxBot\'s features (to be disabled when the bot is online)'
-      },
-      {
         name: 'API',
         value: '`.8ball` - Obviously the most trustworthy source for questions too your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \n`.cat` or `.kitty` - INSTANT CUTENESS!'
       },
       {
         name: 'Other',
         value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.airhorn <type/list>` - Play an airhorn sound'
+      },
+      {
+        name: 'Coming Soon',
+        value: '`.profile <setting/view> <status/bio/server/websites/contact/location/gender/age/birthday|@username#0000> <data>` - View someone\'s profile or create your own (Might take a while to develop)\nAll of OkxBot\'s features (to be disabled when the bot is online)'
       },
       {
         name: '.',
