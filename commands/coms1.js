@@ -403,10 +403,8 @@ module.exports = {
   },
   cleverbot: function(command, message, suffix, clever) {
     if (command == 'cb' || command == 'cleverbot' || command == 'clever') {
-      clever.create(function (err, session) {
-        clever.ask(suffix, function(err, response) {
-          message.channel.sendMessage(response);
-        });
+      clever.ask(suffix, function(err, response) {
+        message.channel.sendMessage(response);
       });
     };
   }

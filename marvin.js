@@ -5,6 +5,7 @@ const bot = new Discord.Client();
 const cleverbot = require('cleverbot.io');
 const clever = new cleverbot('cPzDw3MhlM6GfbxU','P9mRGnXV6JKydmqJkitVHp4WLuJVLeT6');
 clever.setNick('Marvin');
+clever.create(function (err, session) {});
  // config access
 const config = require("./config.json");
  // sql access
