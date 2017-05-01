@@ -1,6 +1,6 @@
 module.exports = {
   qr: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -11,10 +11,10 @@ module.exports = {
         name: 'Quick Replies',
         value: '`.marvin` - Get statistics about bot \n`.lenny` - Post a glorious lenny \n`.L` - it\'s an L of L\'s! \n`.invite` - Get an invite code from the bot'
       }]
-    });
+    }});
   },
   bi: function (message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -25,10 +25,10 @@ module.exports = {
         name: 'Bot Interactions',
         value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` View a joke or add one of your own (jokes expire after 1 week)'
       }]
-    });
+    }});
   },
   api: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -39,10 +39,10 @@ module.exports = {
         name: 'API\'s',
         value: '`.8ball` - Obviously the most trustworthy source for questions too your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \nVariations of `.dog` - Get a random dog :D\n`.cat` or `.kitty` - INSTANT CUTENESS!'
       }]
-    });
+    }});
   },
   other: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -53,10 +53,10 @@ module.exports = {
         name: 'Other',
         value: '`.l33t <text>` or `.leet <text>` - Translate your text to leet speak \n`.airhorn [type/list]` - Play an airhorn sound'
       }]
-    });
+    }});
   },
   cs: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -67,10 +67,10 @@ module.exports = {
         name: 'Coming Soon',
         value: '`.profile` - Access a profile of another user, or view your own \n*Suggest more ideas to Gymnophoria#8146*'
       }]
-    });
+    }});
   },
   info: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -82,10 +82,10 @@ module.exports = {
         name: 'Information',
         value: 'Bot made and hosted by **Gymnophoria**#8146 \nHuge amounts of direct help: **Technocoder** \nStarting help: evie.codes and York \n**Thanks!**'
       }]
-    });
+    }});
   },
   al: function(message, bot) {
-    message.author.sendEmbed({
+    message.author.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -118,10 +118,10 @@ module.exports = {
         name: '.',
         value: 'Suggest ideas to Gymnophoria#8146\n**Technocoder** has been a huge help with this bot, thanks! \n*When typing commands, remove the <>*'
       }]
-    });
+    }});
   },
   general: function(message, bot) {
-    message.channel.sendEmbed({
+    message.channel.send({embed: {
       color: 177563,
       author: {
         name: bot.user.username,
@@ -151,6 +151,6 @@ module.exports = {
         name: 'Info',
         value: 'List information about the bot'
       }]
-    });
+    }});
   }
 };

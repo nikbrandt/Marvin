@@ -3,17 +3,17 @@ const jokes = require('./jokes.js');
 module.exports = {
   ping: function (command, message) {
     if (command == 'ping') {
-      message.channel.sendMessage('pong?');
+      message.channel.send('pong?');
     }
   },
   say: function(command, message, suffix) {
     if (command == "say") {
-      message.channel.sendMessage(suffix);
+      message.channel.send(suffix);
     }
   },
   lenny: function(command, message) {
     if (command == 'lenny') {
-      message.channel.sendMessage('( ͡° ͜ʖ ͡°)');
+      message.channel.send('( ͡° ͜ʖ ͡°)');
     }
   },
   marvin: function(command, message, bot) {
@@ -67,16 +67,16 @@ module.exports = {
       }
       dateString += dateStrings[dateStrings.length - 1];
 
-      message.channel.sendMessage('Marvin is currently.. \nRunning on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nActive for '+dateString);
+      message.channel.send('Marvin is currently.. \nRunning on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nActive for '+dateString);
     }
   },
   game: function(command, message, args, bot, suffix) {
     if (command == 'game') {
       if (args[0] === undefined || args[0] === '') {
-        message.channel.sendMessage('Correct syntax: `.game <game>`');
+        message.channel.send('Correct syntax: `.game <game>`');
         return;
       }
-      message.channel.sendEmbed({
+      message.channel.send({embed :{
         color: 3447003,
         author: {
           name: bot.user.username,
@@ -86,29 +86,29 @@ module.exports = {
           name: 'Now playing',
           value: suffix
         }]
-      });
+      }});
       bot.user.setGame(suffix);
     }
   },
   L: function(command, message) {
     if (command == 'l' || command == 'L') {
-      message.channel.sendMessage(':regional_indicator_l:\n:regional_indicator_l:\n:regional_indicator_l:\n:regional_indicator_l::regional_indicator_l::regional_indicator_l:');
+      message.channel.send(':regional_indicator_l:\n:regional_indicator_l:\n:regional_indicator_l:\n:regional_indicator_l::regional_indicator_l::regional_indicator_l:');
     }
   },
   invite: function(command, message) {
     if (command == 'invite') {
-      message.channel.sendEmbed({
+      message.channel.send({embed: {
         title: 'bit.ly/invitemarvin',
         description: 'You need to be a **server manager** to add bots to a server',
         url: 'https://bit.ly/invitemarvin'
-      });
+      }});
     }
   },
   airhorn: function(command, message, args) {
     if (command == 'airhorn' || command == 'ah') {
       const channel = message.member.voiceChannel;
       if (!message.member.voiceChannel) {
-        message.channel.sendMessage('You need to be in a voice channel for me to play sounds');
+        message.channel.send('You need to be in a voice channel for me to play sounds');
         return;
       }
       var airType = args[0];
@@ -121,7 +121,7 @@ module.exports = {
           });
         }).catch(console.error);
       } else {
-        message.channel.sendMessage(':loudspeaker: Please choose airhorn type `original`, `illuminati`, `mlg`, or `sad`');
+        message.channel.send(':loudspeaker: Please choose airhorn type `original`, `illuminati`, `mlg`, or `sad`');
       }
     }
   },
@@ -139,7 +139,7 @@ module.exports = {
       request('http://yesno.wtf/api', function(error, response, body) {
         if (!error && response.statusCode == 200) {
           var yesNo = JSON.parse(body);
-          message.channel.sendMessage(yesNo.image);
+          message.channel.send(yesNo.image);
         } else {
           Logger.log("warn", "Got an error: ", error, ", status code: ", response.statusCode);
         }
@@ -154,7 +154,7 @@ module.exports = {
           var uD = JSON.parse(body);
           var uDChoose = Math.floor(Math.random()*(uD.list.length));
           if (uD.result_type !== "no_results") {
-            message.channel.sendEmbed({
+            message.channel.send({embed: {
               color: 680000,
               title: uD.list[uDChoose].word,
               url: uD.list[uDChoose].permalink,
@@ -178,9 +178,9 @@ module.exports = {
                 value: ':thumbsup: ' + uD.list[uDChoose].thumbs_up + ' :thumbsdown: ' + uD.list[uDChoose].thumbs_down,
                 inline: true
               }]
-            });
+            }});
           } else {
-            message.channel.sendMessage('**' + suffix + "**: \nNot even the urban dictionary has something like this..");
+            message.channel.send('**' + suffix + "**: \nNot even the urban dictionary has something like this..");
           }
         } else {
           Logger.log("warn", "Got an error: ", error, ", status code: ", response.statusCode);
@@ -194,7 +194,7 @@ module.exports = {
       request('https://8ball.delegator.com/magic/JSON/0', function(error, response, body) {
         if (!error && response.statusCode == 200) {
           var ball = JSON.parse(body);
-          message.channel.sendMessage(':8ball: ' + ball.magic.answer);
+          message.channel.send(':8ball: ' + ball.magic.answer);
         } else {
           console.log("warn - Got an error: " + error + ", status code: " + response.statusCode);
         }
@@ -204,36 +204,36 @@ module.exports = {
   leet: function(command, message, leet, args, suffix) {
     if (command == 'l33t' || command == 'leet') {
       if (args[0] === undefined || args[0] === '') {
-        message.channel.sendMessage('Please enter something to translate.');
+        message.channel.send('Please enter something to translate.');
         return;
       }
       var leetR = leet.encode(suffix);
-      message.channel.sendMessage(leetR);
+      message.channel.send(leetR);
     }
   },
   joke: function(command, message, suffix, args) {
     if (command == 'joke') {
       var jokeJ = suffix.slice(4);
       if (jokeJ.includes('\n')) {
-        message.channel.sendMessage('Jokes should be only one line.');
+        message.channel.send('Jokes should be only one line.');
         return;
       }
       if (jokeJ.length > 250) {
-        message.channel.sendMessage('Jokes should be under 250 chars');
+        message.channel.send('Jokes should be under 250 chars');
         return;
       }
       if (jokeJ.includes('<@')) {
-        message.channel.sendMessage('You can\'t mention people in jokes.. ffs');
+        message.channel.send('You can\'t mention people in jokes.. ffs');
         return;
       }
       jokes.loadJsonFile('./media/jokes.json');
       jokes.cleanOldJokes(604800000);
       if (args[0] == 'add') {
         jokes.addJoke(jokeJ);
-        message.channel.sendMessage('`' + jokeJ + '` added as joke.');
+        message.channel.send('`' + jokeJ + '` added as joke.');
         jokes.saveJsonFile('./media/jokes.json');
       } else {
-        message.channel.sendMessage(jokes.getRandomJoke());
+        message.channel.send(jokes.getRandomJoke());
         jokes.saveJsonFile('./media/jokes.json');
       }
     }
@@ -244,7 +244,7 @@ module.exports = {
       request('http://random.cat/meow', function(error, response, body) {
         if (!error && response.statusCode == 200) {
           var cat = JSON.parse(body);
-          message.channel.sendMessage(cat.file);
+          message.channel.send(cat.file);
         } else {
           console.log("warn - Got an error: " + error + ", status code: " + response.statusCode);
         }
@@ -254,14 +254,14 @@ module.exports = {
   trump: function(command, message, suffix) {
     if (command == 'trump') {
       if (suffix.length < 3 && suffix !== undefined && suffix != 'random' && suffix !== '') {
-        message.channel.sendMessage('Search term needs to be 3 or more characters');
+        message.channel.send('Search term needs to be 3 or more characters');
       }
       var request = require('request');
       if (suffix === undefined || suffix == 'random' || suffix === '') {
         request('https://api.tronalddump.io/random/quote', function(error, response, body) {
           if (!error && response.statusCode == 200) {
             var trump = JSON.parse(body);
-            message.channel.sendEmbed({
+            message.channel.send({embed: {
               author: {
                 name: 'Trump',
                 icon_url: 'https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg'
@@ -279,7 +279,7 @@ module.exports = {
                 value: trump.tags.toString(),
                 inline: true
               }]
-            });
+            }});
           } else {
             console.log("warn - Got an error: " + error + ", status code: " + response.statusCode);
           }
@@ -289,11 +289,11 @@ module.exports = {
           if (!error && response.statusCode == 200) {
             var trump = JSON.parse(body);
             if (trump.count === 0) {
-              message.channel.sendMessage('Trump hasn\'t even said something that messed up..');
+              message.channel.send('Trump hasn\'t even said something that messed up..');
               return;
             }
             var trumpN = Math.floor(Math.random()*trump._embedded.quotes.length);
-            message.channel.sendEmbed({
+            message.channel.send({embed: {
               author: {
                 name: 'Trump',
                 icon_url: 'https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg'
@@ -311,7 +311,7 @@ module.exports = {
                 value: trump._embedded.quotes[trumpN].tags.toString(),
                 inline: true
               }]
-            });
+            }});
           } else {
             console.log("warn - Got an error: " + error + ", status code: " + response.statusCode);
           }
@@ -322,14 +322,14 @@ module.exports = {
   calc: function(command, message, suffix, bot) {
     if (command == 'calc' || command == 'eval') {
       if (suffix === undefined || suffix === '') {
-        message.channel.sendMessage('Please specify an expression to simplify.');
+        message.channel.send('Please specify an expression to simplify.');
         return;
       }
       var request = require('request');
       request('https://newton.now.sh/simplify/' + encodeURIComponent(suffix), function(error, response, body) {
         if (!error && response.statusCode == 200) {
           var newton = JSON.parse(body);
-          message.channel.sendEmbed({
+          message.channel.send({embed: {
             author: {
               name: 'Marvin',
               icon_url: bot.user.avatarURL
@@ -345,7 +345,7 @@ module.exports = {
               value: newton.result,
               inline:true
             }]
-          });
+          }});
         } else {
           console.log("warn - Got an error: " + error + ", status code: " + response.statusCode);
         }
@@ -355,7 +355,7 @@ module.exports = {
   ss: function(command, message, args) {
     if (command == 'ss' || command == 'screenshot') {
       if (args[0] === undefined || args[0] === '') {
-        message.channel.sendMessage('Please send a website to take a screenshot of');
+        message.channel.send('Please send a website to take a screenshot of');
       }
       var w = args[1];
       var h = args[2];
@@ -363,7 +363,7 @@ module.exports = {
         w = 960;
         h = 1500;
       }
-      message.channel.sendMessage('http://api.screenshotlayer.com/api/capture?access_key=a3963a574b8cd45613333b83d5593e9c&viewport=' + w + 'x' + h + '&url=' + args[0]);
+      message.channel.send('http://api.screenshotlayer.com/api/capture?access_key=a3963a574b8cd45613333b83d5593e9c&viewport=' + w + 'x' + h + '&url=' + args[0]);
     }
   },
   xkcd: function(command, message, bot, args) {
@@ -374,12 +374,12 @@ module.exports = {
           var xk = JSON.parse(body);
           var xkN = Math.floor(Math.random()*xk.num);
           if (message.channel.members.has('219764584146403330') && bot.users.get('219764584146403330').presence.status == 'online') {
-            message.channel.sendMessage('/xkcd ' + xkN);
+            message.channel.send('/xkcd ' + xkN);
           } else {
             request('https://xkcd.com/' + xkN + '/info.0.json', function(err, resp, bod) {
               if (!err && resp.statusCode == 200) {
                 xk = JSON.parse(bod);
-                message.channel.sendEmbed({
+                message.channel.send({embed: {
                   author: {
                     name: 'Marvin',
                     icon_url: bot.user.avatarURL
@@ -389,7 +389,7 @@ module.exports = {
                   footer: {text: '#' + xk.num},
                   timestamp: new Date(xk.year, xk.month, xk.day),
                   image: {url: xk.img}
-                });
+                }});
               } else {
                 console.log('Error: ' + err + ', status code: ' + resp.statusCode);
               }
@@ -404,7 +404,7 @@ module.exports = {
   cleverbot: function(command, message, suffix, clever) {
     if (command == 'cb' || command == 'cleverbot' || command == 'clever') {
       clever.ask(suffix, function(err, response) {
-        message.channel.sendMessage(response);
+        message.channel.send(response);
       });
     };
   },
@@ -413,7 +413,7 @@ module.exports = {
       var request = require('request');
       request('https://random.dog/woof.json', function(error, response, body) {
         var dog = JSON.parse(body);
-        message.channel.sendMessage(dog.url);
+        message.channel.send(dog.url);
       })
     }
   }

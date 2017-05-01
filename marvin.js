@@ -31,9 +31,6 @@ bot.on('ready', () => {
 
 bot.on('message', message => {
   if (message.author.bot) return;
-  if (message.content == '/cp train') {
-    message.channel.sendFile('./media/images/train.png', 'train.png');
-  }
   if (!message.content.startsWith(config.prefix)) return;
   if (message.channel.type != 'text') return;
 
@@ -69,6 +66,7 @@ bot.on('message', message => {
   coms1.ss(command, message, args);
   coms1.xkcd(command, message, bot, args);
   coms1.cleverbot(command, message, suffix, clever);
+  coms1.dog(command, message);
   help.help(command, message, bot, suffix);
 });
 
