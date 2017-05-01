@@ -407,5 +407,14 @@ module.exports = {
         message.channel.sendMessage(response);
       });
     };
+  },
+  dog: function(command, message) {
+    if (command == 'dog' || command == 'pupper' || command == 'puppy' || command == 'doggo' || command == 'doge') {
+      var request = require('request');
+      request('https://random.dog/woof.json', function(error, response, body) {
+        var dog = JSON.parse(body);
+        message.channel.sendMessage(dog.url);
+      })
+    }
   }
 };

@@ -37,7 +37,7 @@ module.exports = {
       url: 'http://discord.me/marvin',
       fields: [{
         name: 'API\'s',
-        value: '`.8ball` - Obviously the most trustworthy source for questions too your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \n`.cat` or `.kitty` - INSTANT CUTENESS!'
+        value: '`.8ball` - Obviously the most trustworthy source for questions too your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot. \nVariations of `.dog` - Get a random dog :D\n`.cat` or `.kitty` - INSTANT CUTENESS!'
       }]
     });
   },
