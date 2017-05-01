@@ -80,6 +80,10 @@ bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 bot.on('debug', (e) => console.info(e));
 
+process.on("unhandledRejection", err => {
+  console.error("Uncaught Promise Error: \n" + err.stack);
+});
+
 bot.login(config.token);
 
 /* stuff to add:
