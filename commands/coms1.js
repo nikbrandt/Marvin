@@ -320,7 +320,7 @@ module.exports = {
     }
   },
   calc: function(command, message, suffix, bot) {
-    if (command == 'calc' || command == 'eval') {
+    if (command == 'calc') {
       if (suffix === undefined || suffix === '') {
         message.channel.send('Please specify an expression to simplify.');
         return;
