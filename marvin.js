@@ -11,7 +11,7 @@ clever.create(function (err, session) {});
 const config = require('./config.json');
  // sql access
 const sql = require('sqlite');
-// file writing? idk
+// file storage
 const fs = require('fs');
 // leet
 const Leet = require('l33t');
@@ -21,10 +21,16 @@ const eggs = require('./commands/eggs.js');
 const coms1 = require('./commands/coms1.js');
 const help = require('./commands/help.js');
 const unused = require('./commands/unused.js');
-const other = require('./other.js');
+const funcs = require('./funcs.js');
 // main commands
 const qr = require('./commands/main/quickreplies.js');
 const bi = require('./commands/main/botinteractions.js');
+const apis = require('./commands/main/apis/smallapis.js');
+const ud = require('./commands/main/apis/ud.js');
+const trump = require('./commands/main/apis/trump.js');
+const calc = require('./commands/main/apis/calc.js');
+const xkcd = require('./commands/main/apis/xkcd.js');
+const other = require('./commands/main/other.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
@@ -58,24 +64,24 @@ bot.on('message', message => {
 	bi.say(command, message, suffix);
 	bi.game(command, message, args, bot, suffix);
 	bi.joke(command, message, suffix, args);
-	coms1.airhorn(command, message, args);
+	apis.ball(command, message);
+	apis.choose(command, message);
+	apis.ss(command, message, args);
+	apis.cleverbot(command, message, suffix, clever);
+	apis.cat(command, message);
+	apis.dog(command, message);
+	ud.ud(command, message, suffix);
+	trump.trump(command, message, suffix);
+	calc.calc(command, message, suffix, bot);
+	xkcd.xkcd(command, message, bot, args);
+	other.leet(command, message, leet, args, suffix);
+	other.airhorn(command, message, args);
 	coms1.kys(command, message);
-	coms1.choose(command, message);
-	coms1.ud(command, message, suffix);
-	coms1.ball(command, message);
-	coms1.leet(command, message, leet, args, suffix);
-	coms1.cat(command, message);
-	coms1.trump(command, message, suffix);
-	coms1.calc(command, message, suffix, bot);
-	coms1.ss(command, message, args);
-	coms1.xkcd(command, message, bot, args);
-	coms1.cleverbot(command, message, suffix, clever);
-	coms1.dog(command, message);
 	help.help(command, message, bot, suffix, colors);
 });
 
-other.instadelete(bot);
-other.logger(bot);
+funcs.instadelete(bot);
+funcs.logger(bot);
 
  // send to console
 bot.on('error', (e) => console.error(e));
