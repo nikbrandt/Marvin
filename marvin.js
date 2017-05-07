@@ -24,6 +24,8 @@ const wip = require('./commands/WIP.js');
 const unused = require('./commands/unused.js');
 const other = require('./other.js');
 
+var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
+
 sql.open('./profiles.sqlite');
 
 bot.on('ready', () => {
@@ -68,7 +70,7 @@ bot.on('message', message => {
 	coms1.xkcd(command, message, bot, args);
 	coms1.cleverbot(command, message, suffix, clever);
 	coms1.dog(command, message);
-	help.help(command, message, bot, suffix);
+	help.help(command, message, bot, suffix, colors);
 });
 
 other.instadelete(bot);
