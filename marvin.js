@@ -20,9 +20,10 @@ const leet = new Leet;
 const eggs = require('./commands/eggs.js');
 const coms1 = require('./commands/coms1.js');
 const help = require('./commands/help.js');
-const wip = require('./commands/WIP.js');
 const unused = require('./commands/unused.js');
 const other = require('./other.js');
+// main commands
+const qr = require('./commands/main/quickreplies.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
@@ -49,13 +50,12 @@ bot.on('message', message => {
 	eggs.gymno(command, message);
 	eggs.fuckthis(command, message);
  // other commands
-	coms1.ping(command, message);
+	qr.lenny(command, message);
+	qr.marvin(command, message, bot);
+	qr.L(command, message);
+	qr.invite(command, message);
 	coms1.say(command, message, suffix);
-	coms1.lenny(command, message);
-	coms1.marvin(command, message, bot);
 	coms1.game(command, message, args, bot, suffix);
-	coms1.L(command, message);
-	coms1.invite(command, message);
 	coms1.airhorn(command, message, args);
 	coms1.kys(command, message);
 	coms1.joke(command, message, suffix, args);
