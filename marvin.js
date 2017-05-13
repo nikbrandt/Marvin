@@ -76,7 +76,7 @@ bot.on('message', message => {
 	calc.calc(command, message, suffix, bot);
 	xkcd.xkcd(command, message, bot, args);
 	other.leet(command, message, leet, args, suffix);
-	other.airhorn(command, message, args);
+	// other.airhorn(command, message, args);
 	coms1.kys(command, message);
 	profiles.profiles(command, message, args, suffix, sql, Discord);
 	help.help(command, message, bot, suffix, colors);

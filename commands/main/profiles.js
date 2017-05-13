@@ -10,7 +10,10 @@ module.exports = {
 				if (message.mentions.users.first()) {
 					usID = message.mentions.users.first().id;
 				} else if (args[1] !== undefined && args[1] != '') {
-					var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == args[1].toUpperCase());
+					var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.slice(args[0].length + 1).toUpperCase());
+					if (bFindU == undefined) {
+						bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.slice(args[0].length + 1).toUpperCase());
+					}
 					if (bFindU == undefined) {
 						return message.channel.send('Could not find user by the name of `' + args[1] + '`');
 					} else {
