@@ -31,10 +31,11 @@ const trump = require('./commands/main/apis/trump.js');
 const calc = require('./commands/main/apis/calc.js');
 const xkcd = require('./commands/main/apis/xkcd.js');
 const other = require('./commands/main/other.js');
+const profiles = require('./commands/main/profiles.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
-sql.open('./profiles.sqlite');
+sql.open('./media/profiles.sqlite');
 
 bot.on('ready', () => {
 	console.log('Bot started.');
@@ -77,6 +78,7 @@ bot.on('message', message => {
 	other.leet(command, message, leet, args, suffix);
 	other.airhorn(command, message, args);
 	coms1.kys(command, message);
+	profiles.profiles(command, message, args, suffix, sql, Discord);
 	help.help(command, message, bot, suffix, colors);
 });
 
