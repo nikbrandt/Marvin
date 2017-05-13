@@ -28,17 +28,17 @@ module.exports = {
 					.setDescription('Main command: .profile <view/setting>')
 					.setColor(0x17c65a)
 					.addField('View', '`.profile view [name]`\nView another users profile by mention or display name.')
-					.addField('Setting', '`.profile setting <setting> <value>`\nChange a setting of your profile\nPossible settings: `status, bio, server, websites, contact, location, gender, age, birthday, color, image`');
+					.addField('Setting', '`.profile setting <setting> <value>`\nChange a setting of your profile\nPossible settings: `status, bio, server, websites, contact, location, gender, age, birthday, color, image, name`');
 				return message.channel.send({embed: hEmbed});
 			} else if (args[0] == 'setting' || args[0] == 'settings' || args[0] == 's') {
-				if (args[1].toLowerCase() == 'list' || args[1].toLowerCase() == 'l' || args[1] === undefined) return message.channel.send('Possible settings: \n`status`, `bio`, `server`, `websites`, `contact`, `location`, `gender`, `age`, `birthday`, `color`, `image`');
-				if (args[1].toLowerCase() != 'status' && args[1].toLowerCase() != 'bio' && args[1].toLowerCase() != 'server' && args[1].toLowerCase() != 'websites' && args[1].toLowerCase() != 'contact' && args[1].toLowerCase() != 'location' && args[1].toLowerCase() != 'gender' && args[1].toLowerCase() != 'age' && args[1].toLowerCase() != 'birthday' && args[1].toLowerCase() != 'color' && args[1].toLowerCase() != 'image') {
+				if (args[1].toLowerCase() == 'list' || args[1].toLowerCase() == 'l' || args[1] === undefined) return message.channel.send('Possible settings: \n`status`, `bio`, `server`, `websites`, `contact`, `location`, `gender`, `age`, `birthday`, `color`, `image`, `name`');
+				if (args[1].toLowerCase() != 'status' && args[1].toLowerCase() != 'bio' && args[1].toLowerCase() != 'server' && args[1].toLowerCase() != 'websites' && args[1].toLowerCase() != 'contact' && args[1].toLowerCase() != 'location' && args[1].toLowerCase() != 'gender' && args[1].toLowerCase() != 'age' && args[1].toLowerCase() != 'birthday' && args[1].toLowerCase() != 'color' && args[1].toLowerCase() != 'image' && args[1].toLowerCase() != 'name') {
 					return message.channel.send('Unkown setting name `' + args[1] + '`. Use `.profile help` for help.');
 				}
 				usID = message.author.id;
 				sql.get(`SELECT * FROM profiles WHERE userId = '${usID}'`).then(row => {
 					if (!row) {
-						sql.run('INSERT INTO profiles (userId, status, bio, server, websites, contact, location, gender, age, birthday, color, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [usID, null, null, null, null, null, null, null, null, null, null, null]);
+						sql.run('INSERT INTO profiles (userId, status, bio, server, websites, contact, location, gender, age, birthday, color, image, name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [usID, null, null, null, null, null, null, null, null, null, null, null, null]);
 						return message.channel.send('Profile created - Please run `' + message.content + '` again.');
 					}
 					function intoRowQ(r, c, i) {
@@ -64,6 +64,7 @@ module.exports = {
 					if (args[1].toLowerCase() == 'birthday' && pSuffix.length > 25) return message.channel.send('No birth date is that long.');
 					if (args[1].toLowerCase() == 'color' && pSuffix.length != 6) return message.channel.send('Color should be a 6-digit hex code.');
 					if (args[1].toLowerCase() == 'image' && message.attachments.size == 0) return message.channel.send('No image was attached.');
+					if (args[1].toLowerCase() == 'name' && pSuffix.length > 50) return message.channel.send('C\'mon, your name isn\'t that long..');
 					if (args[1].toLowerCase() == 'image') {
 						intoRowQ(args[1].toLowerCase(), message.attachments.first().url, usID);
 					} else {
@@ -80,7 +81,7 @@ module.exports = {
 
 			sql.get(`SELECT * FROM profiles WHERE userId = '${usID}'`).then(row => {
 				if (!row) {
-					sql.run('INSERT INTO profiles (userId, status, bio, server, websites, contact, location, gender, age, birthday, color, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [usID, null, null, null, null, null, null, null, null, null, null, null]);
+					sql.run('INSERT INTO profiles (userId, status, bio, server, websites, contact, location, gender, age, birthday, color, image, name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [usID, null, null, null, null, null, null, null, null, null, null, null, null]);
 					return message.channel.send('Blank profile created.');
 				}
 				var pEmb = new Discord.RichEmbed()
@@ -101,6 +102,7 @@ module.exports = {
 				if (row.gender !== null) pEmbAF('Gender', row.gender);
 				if (row.age !== null) pEmbAF('Age', row.age);
 				if (row.birthday !== null) pEmbAF('Birthday', row.birthday);
+				if (row.name !== null) pEmbAF('Name', row.name);
 				message.channel.send({embed: pEmb});
 			}).catch(() => {
 				console.error;

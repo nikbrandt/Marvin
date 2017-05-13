@@ -23,7 +23,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Bot Interactions',
-				value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` View a joke or add one of your own (jokes expire after 1 week)'
+				value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
 			}]
 		}});
 	},
@@ -65,7 +65,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Coming Soon',
-				value: '`.profile` - Access a profile of another user, or view your own \n*Suggest more ideas to Gymnophoria#8146*'
+				value: 'On the [trello](https://trello.com/b/lj6U1egX/marvin)\n*Suggest more ideas to Gymnophoria#8146*'
 			}]
 		}});
 	},
@@ -100,7 +100,7 @@ module.exports = {
 			},
 			{
 				name: 'Bot Interactions',
-				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.game <game>` - Change the bot\'s game. (Has a decent rate limit)\n`.joke <add>` Say or add a joke'
+				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.game <game>` - Change the bot\'s game. (Has a decent rate limit)\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`'
 			},
 			{
 				name: 'API',
@@ -112,7 +112,7 @@ module.exports = {
 			},
 			{
 				name: 'Coming Soon',
-				value: '`.profile <setting/view> <status/bio/server/websites/contact/location/gender/age/birthday|@username#0000> <data>` - View someone\'s profile or create your own (Might take a while to develop)\nAll of OkxBot\'s features (to be disabled when the bot is online)'
+				value: 'View the bot\'s [trello](https://trello.com/b/lj6U1egX/marvin).'
 			},
 			{
 				name: '.',
