@@ -50,7 +50,10 @@ module.exports = {
 			}
 			dateString += dateStrings[dateStrings.length - 1];
 
-			message.channel.send('Marvin is currently.. \nRunning on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nActive for '+dateString);
+			message.channel.send('Pinging...').then(msg => {
+				var ping = msg.createdTimestamp - message.createdTimestamp;
+				msg.edit(message.channel.send('Marvin.. \nIs running on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nHas been active for '+dateString+'\nUsing **'+Math.round(process.memoryUsage().heapUsed * 1.0e-6)+'** MB of RAM\nGot a message ping of **'+ping+'** ms'));
+			});
 		}
 	},
 	lenny: function(command, message) {
