@@ -8,7 +8,7 @@ module.exports = {
 			var leetR = leet.encode(suffix);
 			message.channel.send(leetR);
 		}
-	},
+	}/*,
 	airhorn: function(command, message, args) {
 		if (command == 'airhorn' || command == 'ah') {
 			const channel = message.member.voiceChannel;
@@ -29,5 +29,5 @@ module.exports = {
 				message.channel.send(':loudspeaker: Please choose airhorn type `original`, `illuminati`, `mlg`, or `sad`');
 			}
 		}
-	}
+	}*/
 };
