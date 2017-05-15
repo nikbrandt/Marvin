@@ -16,6 +16,8 @@ const fs = require('fs');
 // leet
 const Leet = require('l33t');
 const leet = new Leet;
+// canvas
+var Canvas = require('canvas');
 // command accesss
 const eggs = require('./commands/eggs.js');
 const coms1 = require('./commands/coms1.js');
@@ -78,7 +80,7 @@ bot.on('message', message => {
 	other.leet(command, message, leet, args, suffix);
 	// other.airhorn(command, message, args);
 	coms1.kys(command, message);
-	profiles.profiles(command, message, args, suffix, sql, Discord);
+	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
 	help.help(command, message, bot, suffix, colors);
 });
 
