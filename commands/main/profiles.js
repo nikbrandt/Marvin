@@ -192,6 +192,8 @@ module.exports = {
 				var color;
 				var sColor = '#dadada';
 				var l;
+				var lR;
+				var lF;
 
 				function addHeight(height) {
 					hasProfile = true;
@@ -246,19 +248,24 @@ module.exports = {
 						ctx.fillText('Bio', 20, cH);
 						ctx.fillStyle = sColor;
 						ctx.font = '22px MuliLight';
+						var bText = row.bio.split(' ');
 						if (ctx.measureText(row.bio).width > 800) {
-							l = row.bio.length / 3;
-							ctx.fillText(row.bio.slice(0, -l - l).replace(/u0027/g, '\''), 20, cS);
+							l = bText.length / 3;
+							lR = Math.round(l);
+							lF = Math.floor(l);
+							ctx.fillText(bText.slice(0, -2 * l).join(' ').replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l, -l).replace(/u0027/g, '\''), 20, cS);
+							ctx.fillText(bText.slice(lR, -lF).join(' ').replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l + l).replace(/u0027/g, '\''), 20, cS);
+							ctx.fillText(bText.slice(2 * l).join(' ').replace(/u0027/g, '\''), 20, cS);
 							addHeight(57);
 						} else if (ctx.measureText(row.bio).width > 400) {
-							l = row.bio.length / 2;
-							ctx.fillText(row.bio.slice(0, -l).replace(/u0027/g, '\''), 20, cS);
+							l = bText.length / 2;
+							lR = Math.round(l);
+							lF = Math.floor(l);
+							ctx.fillText(bText.slice(0, -lF).join(' ').replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l).replace(/u0027/g, '\''), 20, cS);
+							ctx.fillText(bText.slice(lR).join(' ').replace(/u0027/g, '\''), 20, cS);
 							addHeight(57);
 						} else {
 							ctx.fillText(row.bio.replace(/u0027/g, '\''), 20, cS);
@@ -271,7 +278,7 @@ module.exports = {
 					if (row.website !== null && row.server !== null) {
 						normalRow(250, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
 					}
-					if (row.website !== null && row.server !== null) {
+					if (row.website !== null && row.server === null) {
 						normalRow(20, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
 					}
 					if (row.contact !== null) {
