@@ -270,7 +270,8 @@ module.exports = {
 					}
 					if (row.website !== null && row.server !== null) {
 						normalRow(250, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
-					} else if (row.website !== null && row.server !== null) {
+					}
+					if (row.website !== null && row.server !== null) {
 						normalRow(20, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
 					}
 					if (row.contact !== null) {
@@ -278,7 +279,8 @@ module.exports = {
 					}
 					if (row.location !== null && row.contact !== null) {
 						normalRow(295, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
-					} else if (row.location !== null && row.contact === null) {
+					}
+					if (row.location !== null && row.contact === null) {
 						normalRow(20, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
 					}
 					if (row.gender !== null) {
@@ -286,14 +288,20 @@ module.exports = {
 					}
 					if (row.age !== null && row.gender !== null) {
 						normalRow(200, 'Age', row.age.replace(/u0027/g, '\''), false);
-					} else if (row.age !== null && row.gender === null) {
+					}
+					if (row.age !== null && row.gender === null) {
 						normalRow(20, 'Age', row.age.replace(/u0027/g, '\''), false);
 					}
 					if (row.birthday !== null && row.gender !== null && row.age !== null) {
 						normalRow(305, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
-					} else if (row.birthday !== null && row.age !== null || row.gender !== null) {
+					}
+					if (row.birthday !== null && row.age !== null && row.gender === null) {
 						normalRow(200, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
-					} else if (row.birthday !== null && row.age === null && row.gender === null) {
+					}
+					if (row.birthday !== null && row.age === null && row.gender !== null) {
+						normalRow(200, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
+					}
+					if (row.birthday !== null && row.age === null && row.gender === null) {
 						normalRow(20, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
 					}
 
