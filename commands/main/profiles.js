@@ -31,7 +31,7 @@ module.exports = {
 					.addField('Setting', '`.profile setting <setting> <value>`\nChange a setting of your profile\nPossible settings: `status, bio, server, website, contact, location, gender, age, birthday, color, image, name, embed`');
 				return message.channel.send({embed: hEmbed});
 			} else if (args[0] == 'setting' || args[0] == 'settings' || args[0] == 's') {
-				if (args[1].toLowerCase() == 'list' || args[1].toLowerCase() == 'l' || args[1] === undefined) return message.channel.send('Possible settings: \n`status`, `bio`, `server`, `website`, `contact`, `location`, `gender`, `age`, `birthday`, `color`, `image`, `name`');
+				if (args[1] === undefined || args[1].toLowerCase() == 'list' || args[1].toLowerCase() == 'l' || args[1] === undefined) return message.channel.send('Possible settings: \n`status`, `bio`, `server`, `website`, `contact`, `location`, `gender`, `age`, `birthday`, `color`, `image`, `name`');
 				if (args[1].toLowerCase() != 'status' && args[1].toLowerCase() != 'bio' && args[1].toLowerCase() != 'server' && args[1].toLowerCase() != 'website' && args[1].toLowerCase() != 'contact' && args[1].toLowerCase() != 'location' && args[1].toLowerCase() != 'gender' && args[1].toLowerCase() != 'age' && args[1].toLowerCase() != 'birthday' && args[1].toLowerCase() != 'color' && args[1].toLowerCase() != 'image' && args[1].toLowerCase() != 'name' && args[1].toLowerCase() != 'embed') {
 					return message.channel.send('Unkown setting name `' + args[1] + '`. Use `.p s l` for a list of settings.');
 				}
@@ -69,7 +69,7 @@ module.exports = {
 					if (args[1].toLowerCase() == 'image') {
 						intoRowQ(args[1].toLowerCase(), message.attachments.first().url, usID);
 					} else {
-						intoRowQ(args[1].toLowerCase(), pSuffix, usID);
+						intoRowQ(args[1].toLowerCase(), pSuffix.replace(/'/g, 'u0027').replace(/\n/g, ' '), usID);
 					}
 					message.channel.send('Setting `' + args[1] + '` updated.');
 				}).catch(() => {
@@ -115,18 +115,18 @@ module.exports = {
 						pEmb.setDescription('');// userId, status, bio, server, website, contact, location, gender, age, birthday
 					}
 
-					if (row.color !== null) pEmb.setColor(row.color);
-					if (row.image !== null) pEmb.setThumbnail(row.image);
-					if (row.status !== null) pEmbAF('Status', row.status);
-					if (row.bio !== null) pEmbAF('Bio', row.bio);
-					if (row.name !== null) pEmbAF('Name', row.name);
-					if (row.server !== null) pEmbAF('Server', row.server);
-					if (row.website !== null) pEmbAF('website', row.website);
-					if (row.contact !== null) pEmbAF('Contact', row.contact);
-					if (row.location !== null) pEmbAF('Location', row.location);
-					if (row.gender !== null) pEmbAF('Gender', row.gender);
-					if (row.age !== null) pEmbAF('Age', row.age);
-					if (row.birthday !== null) pEmbAF('Birthday', row.birthday);
+					if (row.color !== null) pEmb.setColor(row.color.replace(/u0027/g, '\''));
+					if (row.image !== null) pEmb.setThumbnail(row.image.replace(/u0027/g, '\''));
+					if (row.status !== null) pEmbAF('Status', row.status.replace(/u0027/g, '\''));
+					if (row.bio !== null) pEmbAF('Bio', row.bio.replace(/u0027/g, '\''));
+					if (row.name !== null) pEmbAF('Name', row.name.replace(/u0027/g, '\''));
+					if (row.server !== null) pEmbAF('Server', row.server.replace(/u0027/g, '\''));
+					if (row.website !== null) pEmbAF('website', row.website.replace(/u0027/g, '\''));
+					if (row.contact !== null) pEmbAF('Contact', row.contact.replace(/u0027/g, '\''));
+					if (row.location !== null) pEmbAF('Location', row.location.replace(/u0027/g, '\''));
+					if (row.gender !== null) pEmbAF('Gender', row.gender.replace(/u0027/g, '\''));
+					if (row.age !== null) pEmbAF('Age', row.age.replace(/u0027/g, '\''));
+					if (row.birthday !== null) pEmbAF('Birthday', row.birthday.replace(/u0027/g, '\''));
 
 					return message.channel.send({embed: pEmb});
 				}
@@ -231,13 +231,13 @@ module.exports = {
 						ctx.font = '30px CabinCondensed';
 						ctx.translate(422, 95);
 						ctx.rotate(90*Math.PI/180);
-						ctx.fillText(row.name, 0, 0);
+						ctx.fillText(row.name.replace(/u0027/g, '\''), 0, 0);
 						ctx.restore();
 					}
 					if (row.status !== null) {
 						ctx.fillStyle = '#dadada';
 						ctx.font = '25px MuliItalic';
-						ctx.fillText(row.status, 35, 115);
+						ctx.fillText(row.status.replace(/u0027/g, '\''), 35, 115);
 						hasProfile = true;
 					}
 					if (row.bio !== null) {
@@ -248,45 +248,53 @@ module.exports = {
 						ctx.font = '22px MuliLight';
 						if (ctx.measureText(row.bio).width > 800) {
 							l = row.bio.length / 3;
-							ctx.fillText(row.bio.slice(0, -l - l), 20, cS);
+							ctx.fillText(row.bio.slice(0, -l - l).replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l, -l), 20, cS);
+							ctx.fillText(row.bio.slice(l, -l).replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l + l), 20, cS);
+							ctx.fillText(row.bio.slice(l + l).replace(/u0027/g, '\''), 20, cS);
 							addHeight(57);
 						} else if (ctx.measureText(row.bio).width > 400) {
 							l = row.bio.length / 2;
-							ctx.fillText(row.bio.slice(0, -l), 20, cS);
+							ctx.fillText(row.bio.slice(0, -l).replace(/u0027/g, '\''), 20, cS);
 							addHeight(18);
-							ctx.fillText(row.bio.slice(l), 20, cS);
+							ctx.fillText(row.bio.slice(l).replace(/u0027/g, '\''), 20, cS);
 							addHeight(57);
 						} else {
-							ctx.fillText(row.bio, 20, cS);
+							ctx.fillText(row.bio.replace(/u0027/g, '\''), 20, cS);
 							addHeight(57);
 						}
 					}
 					if (row.server !== null) {
-						normalRow(20, 'Server', row.server.replace(/^(https?|ftp):\/\//g, ''), false);
+						normalRow(20, 'Server', row.server.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
-					if (row.website !== null) {
-						normalRow(250, 'Website', row.website.replace(/^(https?|ftp):\/\//g, ''), false);
+					if (row.website !== null && row.server !== null) {
+						normalRow(250, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
+					} else if (row.website !== null && row.server !== null) {
+						normalRow(20, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
 					}
-					if (row.website !== null || row.server !== null) addHeight(57);
 					if (row.contact !== null) {
-						normalRow(20, 'Contact', row.contact.replace(/^(https?|ftp):\/\//g, ''), false);
+						normalRow(20, 'Contact', row.contact.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
-					if (row.location !== null) { // width, title name, row name, add height, add height amount
-						normalRow(295, 'Location', row.location, false);
+					if (row.location !== null && row.contact !== null) {
+						normalRow(295, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
+					} else if (row.location !== null && row.contact === null) {
+						normalRow(20, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
 					}
-					if (row.contact !== null || row.location !== null) addHeight(57);
 					if (row.gender !== null) {
-						normalRow(20, 'Gender', row.gender, false);
+						normalRow(20, 'Gender', row.gender.replace(/u0027/g, '\''), false);
 					}
-					if (row.age !== null) {
-						normalRow(200, 'Age', row.age, false);
+					if (row.age !== null && row.gender !== null) {
+						normalRow(200, 'Age', row.age.replace(/u0027/g, '\''), false);
+					} else if (row.age !== null && row.gender === null) {
+						normalRow(20, 'Age', row.age.replace(/u0027/g, '\''), false);
 					}
-					if (row.birthday !== null) {
-						normalRow(305, 'Birthday', row.birthday, false);
+					if (row.birthday !== null && row.gender !== null && row.age !== null) {
+						normalRow(305, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
+					} else if (row.birthday !== null && row.age !== null || row.gender !== null) {
+						normalRow(200, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
+					} else if (row.birthday !== null && row.age === null && row.gender === null) {
+						normalRow(20, 'Birthday', row.birthday.replace(/u0027/g, '\''), false);
 					}
 
 					if (hasProfile === false) {
