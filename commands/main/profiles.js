@@ -141,7 +141,7 @@ module.exports = {
 				var cNum = 0;
 				var hasProfile = false;
 
-				fs.readFile('/Users/Nik/Desktop/bots/marvinphoto.png', function(err, marvin){
+				fs.readFile('../marvinphoto.png', function(err, marvin){
 					if (err) throw err;
 					var img = new Image;
 					img.src = marvin;
@@ -154,7 +154,21 @@ module.exports = {
 					encoding: null
 				};
 
+				var cH = 115;
+				var cS = 135;
+				var color;
+				var sColor = '#dadada';
+				var l;
+				var lR;
+				var lF;
+
 				if (row.image === null) {
+					fs.readFile('./media/images/npb.png', function(err, npb) {
+						if (err) throw err;
+						var img = new Image;
+						img.src = npb;
+						ctx.drawImage(img, 20, 10, img.width / 2, img.height / 2);
+					});
 					request(requestS1, function (err, response, body) {
 						var img = new Image;
 						img.src = body;
@@ -186,14 +200,6 @@ module.exports = {
 						CompleteDrawing();
 					});
 				}
-
-				var cH = 150;
-				var cS = 170;
-				var color;
-				var sColor = '#dadada';
-				var l;
-				var lR;
-				var lF;
 
 				function addHeight(height) {
 					hasProfile = true;
@@ -239,8 +245,9 @@ module.exports = {
 					if (row.status !== null) {
 						ctx.fillStyle = '#dadada';
 						ctx.font = '25px MuliItalic';
-						ctx.fillText(row.status.replace(/u0027/g, '\''), 35, 115);
+						ctx.fillText(row.status.replace(/u0027/g, '\''), 35, cH);
 						hasProfile = true;
+						addHeight(30);
 					}
 					if (row.bio !== null) {
 						ctx.fillStyle = color;
@@ -276,20 +283,22 @@ module.exports = {
 						normalRow(20, 'Server', row.server.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
 					if (row.website !== null && row.server !== null) {
-						normalRow(250, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
+						normalRow(240, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
 					if (row.website !== null && row.server === null) {
-						normalRow(20, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), true, 57);
+						normalRow(20, 'Website', row.website.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
+					if (row.website !== null || row.server !== null) addHeight(57);
 					if (row.contact !== null) {
 						normalRow(20, 'Contact', row.contact.replace(/^(https?|ftp):\/\//g, '').replace(/u0027/g, '\''), false);
 					}
 					if (row.location !== null && row.contact !== null) {
-						normalRow(295, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
+						normalRow(250, 'Location', row.location.replace(/u0027/g, '\''), false);
 					}
 					if (row.location !== null && row.contact === null) {
-						normalRow(20, 'Location', row.location.replace(/u0027/g, '\''), true, 57);
+						normalRow(20, 'Location', row.location.replace(/u0027/g, '\''), false);
 					}
+					if (row.contact !== null || row.location !== null) addHeight(57);
 					if (row.gender !== null) {
 						normalRow(20, 'Gender', row.gender.replace(/u0027/g, '\''), false);
 					}

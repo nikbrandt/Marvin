@@ -11,12 +11,17 @@ module.exports = {
 	},
 	gymno: function(command, message) {
 		if (command == 'gymno') {
-			message.channel.send({files: ['./media/images/gymno.jpg']});
+			message.channel.send({files: ['http://i.imgur.com/IJCXt7X.jpg']});
 		}
 	},
 	fuckthis: function(command, message) {
 		if (command == 'ft' || command == 'fuckthis') {
-			message.channel.send('http://i.imgur.com/IC84G1h.gif');
+			message.channel.send({files: ['http://i.imgur.com/IC84G1h.gif']});
+		}
+	},
+	nintenbot: function(command, message) {
+		if (command == 'nintenbot' || command == 'ninten') {
+			message.channel.send({files: ['http://i.imgur.com/qKlnz5n.jpg']});
 		}
 	}
 };

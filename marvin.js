@@ -14,8 +14,7 @@ const sql = require('sqlite');
 // file storage
 const fs = require('fs');
 // leet
-const Leet = require('l33t');
-const leet = new Leet;
+const leet = require('leet');
 // canvas
 var Canvas = require('canvas');
 // command accesss
@@ -37,7 +36,7 @@ const profiles = require('./commands/main/profiles.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
-sql.open('./media/profiles.sqlite');
+sql.open('./media/main.sqlite');
 
 bot.on('ready', () => {
 	console.log('Bot started.');
@@ -59,6 +58,7 @@ bot.on('message', message => {
 	eggs.techno(command, message);
 	eggs.gymno(command, message);
 	eggs.fuckthis(command, message);
+	eggs.nintenbot(command, message);
  // other commands
 	qr.lenny(command, message);
 	qr.marvin(command, message, bot);

@@ -5,7 +5,7 @@ module.exports = {
 				message.channel.send('Please enter something to translate.');
 				return;
 			}
-			var leetR = leet.encode(suffix);
+			var leetR = leet.convert(suffix);
 			message.channel.send(leetR);
 		}
 	}/*,

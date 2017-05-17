@@ -23,7 +23,7 @@ module.exports = {
 					value: suffix
 				}]
 			}});
-			bot.user.setGame(suffix);
+			bot.user.setGame('.help | ' + suffix);
 		}
 	},
 	joke: function(command, message, suffix, args) {
