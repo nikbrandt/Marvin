@@ -14,10 +14,6 @@ module.exports = {
 			}
 			message.channel.send({embed :{
 				color: 3447003,
-				author: {
-					name: bot.user.username,
-					icon_url: bot.user.avatarURL
-				},
 				fields: [{
 					name: 'Now playing',
 					value: suffix

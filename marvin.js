@@ -47,8 +47,7 @@ bot.on('message', message => {
 	if (!message.content.startsWith(config.prefix)) return;
 	if (message.channel.type != 'text') return;
 
-	let command = message.content.split(' ')[0];
-	command = command.slice(config.prefix.length);
+	let command = message.content.split(' ')[0].slice(config.prefix.length);
 
 	let args = message.content.split(' ').slice(1);
 	let suffix = message.content.slice(command.length + config.prefix.length + 1);

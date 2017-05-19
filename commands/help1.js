@@ -2,10 +2,6 @@ module.exports = {
 	qr: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Quick Replies',
@@ -16,24 +12,16 @@ module.exports = {
 	bi: function (message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Bot Interactions',
-				value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
+				value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` - View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
 			}]
 		}});
 	},
 	api: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'API\'s',
@@ -44,10 +32,6 @@ module.exports = {
 	other: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Other',
@@ -58,10 +42,6 @@ module.exports = {
 	cs: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Coming Soon',
@@ -72,10 +52,6 @@ module.exports = {
 	info: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			description: '*Quite the Paranoid Android*',
 			url: 'http://discord.me/marvin',
 			fields: [{
@@ -87,10 +63,6 @@ module.exports = {
 	al: function(message, bot, colors) {
 		message.author.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			title: 'For more help, join the official discord server',
 			url: 'http://discord.me/marvin',
 			description: '*Quite the Paranoid Android*',
@@ -123,10 +95,6 @@ module.exports = {
 	general: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],
-			author: {
-				name: bot.user.username,
-				icon_url: bot.user.avatarURL
-			},
 			url: 'http://discord.me/marvin',
 			title: 'General Help',
 			description: 'The help command is divided into different sections. Do `.help <section>` to view help on a specific section. \n**Sections:**',

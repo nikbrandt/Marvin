@@ -50,9 +50,10 @@ module.exports = {
 			}
 			dateString += dateStrings[dateStrings.length - 1];
 
+			var heartbeat = new Date() - message.createdTimestamp;
 			message.channel.send('Pinging...').then(msg => {
 				var ping = msg.createdTimestamp - message.createdTimestamp;
-				msg.edit(message.channel.send('Marvin.. \nIs running on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nHas been active for '+dateString+'\nUsing **'+Math.round(process.memoryUsage().heapUsed * 1.0e-6)+'** MB of RAM\nGot a message ping of **'+ping+'** ms'));
+				msg.edit(message.channel.send('Marvin.. \nIs running on **' + bot.guilds.size + '** servers \nResponding to **' + bot.users.size + '** users\nHas been active for '+dateString+'\nUsing **'+Math.round(process.memoryUsage().heapTotal * 1.0e-6)+'** MB of RAM\nHeartbeat ping of **'+heartbeat+'** ms\nRound-trip ping of **'+ping+'** ms'));
 			});
 		}
 	},
