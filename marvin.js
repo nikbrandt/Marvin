@@ -34,6 +34,7 @@ const xkcd = require('./commands/main/apis/xkcd.js');
 const other = require('./commands/main/other.js');
 const profiles = require('./commands/main/profiles.js');
 const levels = require('./commands/main/levels.js');
+const guild = require('./commands/main/guilds.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
@@ -78,8 +79,9 @@ bot.on('message', message => {
 	calc.calc(command, message, suffix, bot);
 	xkcd.xkcd(command, message, bot, args);
 	other.leet(command, message, leet, args, suffix);
-	other.eval(command, message, suffix, bot, Discord, sql);
-	levels.xp(command, message, sql, Discord, colors);
+	other.eval(command, message, suffix, bot, Discord, sql, config);
+	guild.guild(command, message, args, suffix, sql);
+	levels.xp(command, message, sql, args, suffix, Discord, colors, bot);
 	// other.airhorn(command, message, args);
 	coms1.kys(command, message);
 	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
