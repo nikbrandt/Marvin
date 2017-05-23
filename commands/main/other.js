@@ -8,6 +8,65 @@ module.exports = {
 			var leetR = leet.convert(suffix);
 			message.channel.send(leetR);
 		}
+	},
+	eval: function(command, message, suffix, bot, Discord, sql) {
+		if (command == '.eval') {
+			if (message.author.id != '179114344863367169') return;
+			var eErr = false;
+			try {
+				var evaled = eval(suffix);
+
+				if (typeof evaled !== 'string') {
+					evaled = require('util').inspect(evaled);
+				}
+			} catch (err) {
+				eErr = true;
+				var eErrM = err;
+			}
+			if (evaled !== undefined) {
+				if (evaled.length > 1024) {
+					var eSL = evaled.length - 970;
+					evaled = evaled.slice(0, -eSL) + '\n\n// Trimmed ' + eSL + ' chars';
+				}
+			}
+			if (suffix == 'bot.token' || suffix == 'client.token') {
+				var tTexts = ['Seriously?', 'lmao', 'you tried..', 'i\'m not that guillible ffs', 'just.. no.', ':l', '🤔', '*sigh*'];
+				evaled = tTexts[Math.floor(Math.random() * tTexts.length)];
+			}
+			var embedM;
+			if (eErr === false) {
+				embedM = new Discord.RichEmbed()
+					.setAuthor('Eval')
+					.addField(':pencil2: Input', '```js\n' + suffix + '\n```')
+					.addField(':clipboard: Output', '```js\n' + evaled + '\n```');
+			} else { //REMOVE EMBED PLS
+				embedM = new Discord.RichEmbed()
+					.setAuthor('Eval')
+					.addField(':pencil2: Input', '```js\n' + suffix + '\n```')
+					.addField(':clipboard: Output', '```js\n' + evaled + '\n```')
+					.addField(':warning: Error', '```js\n' + eErrM + '\n```');
+			}
+			message.channel.send({embed: embedM}).then(msg => setTimeout(function(){
+				if (evaled === undefined) {
+					evaled = 'undefined';
+				}
+				if (evaled.length > 100) {
+					var eLS = evaled.length - 100;
+					var eLSpSL = eLS + eSL;
+					evaled = evaled.slice(0, -eLS) + '\n\n// Trimmed ' + eLSpSL + ' chars';
+				}
+				if (evaled.includes('\n')) {
+					evaled = '``js\n' + evaled + '\n``';
+				}
+				var eErrEM;
+				if (eErr === true) {
+					eErrEM = '\n:warning: **Error**: ```js\n' + eErrM + '\n```';
+				} else {
+					eErrEM = '';
+				}
+				msg.edit(':pencil2: **Input**: ```js\n' + suffix + '\n```\n:clipboard: **Output**: ```js\n' + evaled + '\n```' + eErrEM, {embed: {}});
+			}, 10000));
+		}
 	}/*,
 	airhorn: function(command, message, args) {
 		if (command == 'airhorn' || command == 'ah') {

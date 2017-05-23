@@ -16,6 +16,7 @@ module.exports = {
 	levels: function(bot, message, sql) {
 		if (message.author.bot) return;
 		if (message.channel.type != 'text') return;
+		if (message.channel.id == '304429222477299712') return;
 		var usID = message.author.id;
 		var gID = message.guild.id;
 		sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => {
