@@ -15,7 +15,7 @@ module.exports = {
 	},
 	levels: function(bot, message, sql) {
 		sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
-			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [gID, '.', 'true']); //eslint-disable-line quotes
+			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
 			if (row3.levels == 'false' || row3.levels === false) return;
 			if (message.author.bot) return;
 			if (message.channel.type != 'text') return;
@@ -40,9 +40,9 @@ module.exports = {
 					}
 					if (xpM > 3) xpM = 3;
 					sql.run(`UPDATE guildModeration SET xpM = ${xpM} WHERE userId = ${usID} AND guildId = ${gID}`);
-					var xpMN = Math.round(xpM * 3);
+					var xpMN = Math.round(xpM * 5);
 					var xpMin = xpMN - 2;
-					var xpMax = xpMN + 1;
+					var xpMax = xpMN + 2;
 					var xpAdd = Math.round(Math.random() * (xpMax - xpMin) + xpMin);
 					if (row.xpCurrent + xpAdd >= Math.floor(100 * Math.pow(1.07, row.xpLevel))) {
 						sql.run(`UPDATE guildModeration SET xpLevel = ${row.xpLevel + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
@@ -58,5 +58,10 @@ module.exports = {
 				});
 			});
 		});
+	},
+	games: function(bot, games) {
+		setInterval(() => {
+			bot.user.setGame('.help | ' + games[Math.floor(Math.random() * games.length)], 'https://www.twitch.tv/hey');
+		}, 30000);
 	}
 };

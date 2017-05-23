@@ -37,11 +37,13 @@ const levels = require('./commands/main/levels.js');
 const guild = require('./commands/main/guilds.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
+var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends'];
 
 sql.open('./media/main.sqlite');
 
 bot.on('ready', () => {
 	console.log('Bot started.');
+	funcs.games(bot, games);
 });
 
 bot.on('message', message => {
@@ -66,7 +68,7 @@ bot.on('message', message => {
 	qr.L(command, message);
 	qr.invite(command, message);
 	bi.say(command, message, suffix);
-	bi.game(command, message, args, bot, suffix);
+	// bi.game(command, message, args, bot, suffix);
 	bi.joke(command, message, suffix, args);
 	apis.ball(command, message);
 	apis.choose(command, message);

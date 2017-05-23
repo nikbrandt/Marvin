@@ -2,7 +2,7 @@ module.exports = {
 	xp: function(command, message, sql, args, suffix, Discord, colors, bot) {
 		if (command == 'xp') {
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
-				if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [gID, '.', 'true']); //eslint-disable-line quotes
+				if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
 				if (row3.levels == 'false' || row3.levels === false) return message.channel.send('This guild\'s staff have disabled leveling.');
 				var usID;
 				if (message.mentions.users.first()) {

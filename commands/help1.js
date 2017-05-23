@@ -15,7 +15,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Bot Interactions',
-				value: '`.say` - Have me repeat whatever you want \n`.game` - Set my game to whatever you so please \n`.joke [add]` - View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
+				value: '`.say` - Have me repeat whatever you want \n`.joke [add]` - View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
 			}]
 		}});
 	},
@@ -35,7 +35,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Other',
-				value: '`.l33t <text>` or `.leet <text>` - Translate your text to leet speak \n`.airhorn [type/list]` - Play an airhorn sound'
+				value: '`.l33t <text>` or `.leet <text>` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.server setting` - Change server settings. As of now, only levels.'
 			}]
 		}});
 	},
@@ -72,7 +72,7 @@ module.exports = {
 			},
 			{
 				name: 'Bot Interactions',
-				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.game <game>` - Change the bot\'s game. (Has a decent rate limit)\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`'
+				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`'
 			},
 			{
 				name: 'API',
@@ -80,7 +80,7 @@ module.exports = {
 			},
 			{
 				name: 'Other',
-				value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.airhorn <type/list>` - Play an airhorn sound'
+				value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.server setting` - Change server settings. As of now, only levels.'
 			},
 			{
 				name: 'Coming Soon',
