@@ -82,9 +82,12 @@ bot.on('message', message => {
 	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
 	help.help(command, message, bot, suffix, colors);
 });
-
-funcs.instadelete(bot);
-funcs.logger(bot);
+// other stuffs with message event
+bot.on('message', message => {
+	funcs.instadelete(bot, message);
+	funcs.logger(bot, message);
+	funcs.levels(bot, message, sql);
+});
 
  // send to console
 bot.on('error', (e) => console.error(e));
