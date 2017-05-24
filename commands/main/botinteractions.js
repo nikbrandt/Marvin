@@ -3,7 +3,7 @@ const jokes = require('../jokes.js');
 module.exports = {
 	say: function(command, message, suffix) {
 		if (command == 'say') {
-			message.channel.send(suffix);
+			message.channel.send(suffix.replace(/@/g, '@\u200b'));
 		}
 	},
 	game: function(command, message, args, bot, suffix) {

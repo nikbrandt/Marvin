@@ -59,8 +59,9 @@ module.exports = {
 			});
 		});
 	},
-	games: function(bot, games) {
+	games: function(bot) {
 		setInterval(() => {
+			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends'];
 			bot.user.setGame('.help | ' + games[Math.floor(Math.random() * games.length)], 'https://www.twitch.tv/hey');
 		}, 30000);
 	}
