@@ -44,8 +44,10 @@ var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed
 sql.open('./media/main.sqlite');
 
 bot.on('ready', () => {
+	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
 	funcs.games(bot);
+	bot.logChannel = bot.channels.get('240975136084197377'); // temporary
 });
 
 bot.on('message', message => {
@@ -90,13 +92,15 @@ bot.on('message', message => {
 	admin.kys(command, message);
 	admin.listservers(command, message, bot);
 	admin.serverinfo(command, message, bot, args, moment);
+	admin.sendmessage(command, message, bot, args, suffix);
+	admin.logger(command, message, bot, args);
 	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
 	help.help(command, message, bot, suffix, colors);
 });
 // other stuffs with message event
 bot.on('message', message => {
 	funcs.instadelete(bot, message);
-	funcs.logger(bot, message);
+	funcs.logger(bot, message, moment);
 	funcs.levels(bot, message, sql);
 });
 

@@ -92,6 +92,17 @@ module.exports = {
 			}]
 		}});
 	},
+	owner: (message, bot) => {
+		message.channel.send({embed: {
+			color: 0xff0000,
+			title: 'Owner Only',
+			description: 'All the creepy lil\' commands that gymno has',
+			fields: [{
+				name: '\u200b',
+				value: '`.kys` - restart the bot\n`.guilds` - list all guilds the bot is in\n`.serverinfo` - get info about a server\n`.sendmessage [c]` - send a message to a channel\n`.log` - set the channel/guild to be logged'
+			}]
+		}});
+	},
 	general: function(message, bot, colors) {
 		message.channel.send({embed: {
 			color: colors[Math.floor(Math.random()*colors.length)],

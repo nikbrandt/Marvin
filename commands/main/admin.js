@@ -9,7 +9,7 @@ module.exports = {
 		if (command == 'servers' || command == 'guilds') {
 			if(message.author.id != '179114344863367169') return;
 			var servers = bot.guilds.map(m => {
-				return `**${m.name}** ([id](${m.id})) owned by **${m.owner.displayName}** ([id](${m.ownerID})), ${m.memberCount} members`;
+				return `**${m.name}** (${m.id}) owned by **${m.owner.displayName}** ([id](${m.ownerID})), ${m.memberCount} members`;
 			});
 			message.channel.send({embed: {
 				title: 'Marvin\'s Servers',
@@ -19,9 +19,10 @@ module.exports = {
 	},
 	serverinfo: async function(command, message, bot, args, moment) {
 		if (command == 'serverinfo' || command == 'si' || command == 'guildinfo' || command == 'gi') {
-			if(message.author.id != '179114344863367169') return;
-			var server = bot.guilds.get(args[0]);
-			if (server === undefined || args[0] === undefined) return message.channel.send('`' + args[0] + '` is not a valid server ID.');
+			if(message.author.id === '179114344863367169') {
+				var server = bot.guilds.get(args[0]);
+				if (server === undefined || args[0] === undefined) server = message.guild;
+			} else server = message.guild;
 			var sOnA = server.presences.map(p=>p.status != 'offline').length;
 			var sBotA = 0;
 			server.members.map(mem=>{if (mem.user.bot === true) sBotA++;});
@@ -80,6 +81,44 @@ module.exports = {
 					inline: true
 				}]
 			}});
+		}
+	},
+	sendmessage: (command, message, bot, args, suffix) => {
+		if (command == 'sm' || command == 'sendmessage') {
+			if (message.author.id != '179114344863367169') return;
+			if (args[0] === undefined) return message.channel.send('wat');
+			if (args[0] == 'c' || args[0] == 'channel') {
+				if (args[1] === undefined) return message.channel.send('im sorry but i cant send to nothing ffs');
+				var channel = bot.channels.get(args[1]);
+				if (channel === undefined) return message.channel.send(`\`${args[1]}\` is not a valid server or channel id. rip you.`);
+				message.channel.send(`Successfully set sendmessage channel to **${channel.name}** in **${channel.guild.name}**`);
+				bot.smChannel = channel;
+			} else {
+				if (bot.smChannel === undefined) return message.channel.send('you have no channel defined ffs');
+				bot.smChannel.send(suffix);
+			}
+		}
+	},
+	logger: (command, message, bot, args) => {
+		if (command == 'logger' || command == 'log') {
+			if (message.author.id != '179114344863367169') return;
+			if (args[0] === undefined) {
+				if (bot.logChannelG === undefined) return message.channel.send('Not logging in any channel.');
+				if (bot.logChannelG === false) return message.channel.send(`Currently logging in channel \`${bot.logChannel.name}\` of \`${bot.logChannel.guild.name}\``);
+				if (bot.logChannelG === true) return message.channel.send(`Currently logging all messages of \`${bot.logChannel}\``);
+			}
+			var channel = bot.channels.get(args[0]);
+			var server = bot.guilds.get(args[0]);
+			if (channel === undefined) return message.channel.send(`\`${args[0]}\` isn't a valid server or channel id.. dumbo`);
+			if (server === undefined) {
+				message.channel.send(`Set logging channel to \`${channel.name}\` of \`${channel.guild.name}\``);
+				bot.logChannel = channel;
+				bot.logChannelG = false;
+			} else {
+				message.channel.send(`Logging all **${server.name}** server messages.`);
+				bot.logChannel = server;
+				bot.logChannelG = true;
+			}
 		}
 	}
 };

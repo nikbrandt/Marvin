@@ -18,6 +18,8 @@ module.exports = {
 				helpOne.info(message, bot, colors);
 			} else if (uSuffix == 'ALL') {
 				helpOne.al(message, bot, colors);
+			} else if (uSuffix == 'OWNER') {
+				helpOne.owner(message, bot);
 			} else {
 				helpOne.general(message, bot, colors);
 			}
