@@ -88,6 +88,7 @@ bot.on('message', message => {
 	other.eval(command, message, suffix, bot, Discord, sql, config);
 	guild.guild(command, message, args, suffix, sql);
 	levels.xp(command, message, sql, args, suffix, Discord, colors, bot);
+	levels.xpinfo(command, message, config, colors);
 	// other.airhorn(command, message, args);
 	admin.kys(command, message);
 	admin.listservers(command, message, bot);

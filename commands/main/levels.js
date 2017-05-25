@@ -35,5 +35,18 @@ module.exports = {
 				});
 			});
 		}
+	},
+	xpinfo: (command, message, config, colors) => {
+		if (command == 'xpinfo' || command == 'xi') {
+			message.channel.send({embed: {
+				color: colors[Math.floor(Math.random() * colors.length)],
+				title: 'Leveling System',
+				description: 'Marvin has a leveling system that gives you xp and levels you up as you type messages. To disable this in your guild, do `.g s levels false`.',
+				fields: [{
+					name: 'Current Options',
+					value: `XP Revolving around **${config.xp.base}**, for a range of **${config.xp.base - config.xp.min} to ${config.xp.base + config.xp.max}** XP per message.\nXP is added every **${config.xp.xpAdd / 1000}** seconds\nTo achieve level 1, you need **${config.xp.levelOne}** XP.\nEach level requires **${config.xp.eqMult}**x as much xp as the previous.\nThe maximum your xp can be multiplied for activity is **${config.xp.maxMult}**x`
+				}]
+			}});
+		}
 	}
 };

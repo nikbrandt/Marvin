@@ -35,7 +35,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Other',
-				value: '`.l33t <text>` or `.leet <text>` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.server setting` - Change server settings. As of now, only levels.'
+				value: '`.l33t <text>` or `.leet <text>` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.xpinfo` - See info about bot leveling\n`.server setting` - Change server settings. As of now, only levels.'
 			}]
 		}});
 	},
@@ -80,7 +80,7 @@ module.exports = {
 			},
 			{
 				name: 'Other',
-				value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.server setting` - Change server settings. As of now, only levels.'
+				value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.xpinfo` - See info about bot leveling\n`.server setting` - Change server settings. As of now, only levels.'
 			},
 			{
 				name: 'Coming Soon',

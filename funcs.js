@@ -31,7 +31,7 @@ module.exports = {
 					if (!row) sql.run(`INSERT INTO guildModeration (guildId, userId, bans, kicks, mutes, warns, banEnd, muteEnd, xpLevel, xpTotal, xpCurrent, lastMessage, lastXP, xpM) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [gID, usID, 0, 0, 0, 0, null, null, 0, 0, 0, Date.now(), Date.now(), 1]);
 					if (!row2) sql.run(`INSERT INTO moderation (userId, gBans, gKicks, gMutes, gWarns, gCases, gXP) VALUES (?, ?, ?, ?, ?, ?, ?)`, [usID, 0, 0, 0, 0, 0, 0]);
 					if (!row || !row2) return;
-					if (Date.now() - row.lastXP < 15000) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = ${usID} AND guildId = ${gID}`);
+					if (Date.now() - row.lastXP < config.xp.xpAdd) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = ${usID} AND guildId = ${gID}`);
 					var xpM;
 					if (Date.now() - row.lastMessage < 15000) {
 						xpM = row.xpM * 1.025;
@@ -42,15 +42,15 @@ module.exports = {
 					} else {
 						xpM = 1;
 					}
-					if (xpM > 3) xpM = 3;
+					if (xpM > config.xp.maxMult) xpM = config.xp.maxMult;
 					sql.run(`UPDATE guildModeration SET xpM = ${xpM} WHERE userId = ${usID} AND guildId = ${gID}`);
-					var xpMN = Math.round(xpM * 5);
-					var xpMin = xpMN - 2;
-					var xpMax = xpMN + 2;
+					var xpMN = Math.round(xpM * config.xp.base);
+					var xpMin = xpMN - config.xp.min;
+					var xpMax = xpMN + config.xp.max;
 					var xpAdd = Math.round(Math.random() * (xpMax - xpMin) + xpMin);
-					if (row.xpCurrent + xpAdd >= Math.floor(100 * Math.pow(1.07, row.xpLevel))) {
+					if (row.xpCurrent + xpAdd >= Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel))) {
 						sql.run(`UPDATE guildModeration SET xpLevel = ${row.xpLevel + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
-						sql.run(`UPDATE guildModeration SET xpCurrent = ${Math.floor(100 * Math.pow(1.07, row.xpLevel)) - (row.xpCurrent - xpAdd)} WHERE userId = '${usID}' AND guildId = '${gID}'`);
+						sql.run(`UPDATE guildModeration SET xpCurrent = ${Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel)) - (row.xpCurrent - xpAdd)} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${row.xpLevel + 1}**!`);
 					} else {
 						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpCurrent + xpAdd} WHERE userId = '${usID}' AND guildId = '${gID}'`);
