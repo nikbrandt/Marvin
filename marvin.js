@@ -48,6 +48,7 @@ bot.on('ready', () => {
 	console.log('Bot started.');
 	funcs.games(bot);
 	bot.logChannel = bot.channels.get('240975136084197377'); // temporary
+	bot.logChannelG = true;
 });
 
 bot.on('message', message => {
@@ -87,8 +88,9 @@ bot.on('message', message => {
 	other.leet(command, message, leet, args, suffix);
 	other.eval(command, message, suffix, bot, Discord, sql, config);
 	guild.guild(command, message, args, suffix, sql);
-	levels.xp(command, message, sql, args, suffix, Discord, colors, bot);
+	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config);
 	levels.xpinfo(command, message, config, colors);
+	levels.leaderboard(command, message, args, sql, bot);
 	// other.airhorn(command, message, args);
 	admin.kys(command, message);
 	admin.listservers(command, message, bot);

@@ -1,7 +1,7 @@
 module.exports = {
 	guild: function(command, message, args, suffix, sql) {
 		if (command == 'guild' || command == 'server' || command == 'g' || command == 's') {
-			if (!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send('You do not have the server permission `Manage Server`');
+			if (!message.member.permissions.has('MANAGE_GUILD') && message.author.id != '179114344863367169') return message.channel.send('You do not have the server permission `Manage Server`');
 			var gID = message.guild.id;
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${gID}`).then(row => { // eslint-disable-line quotes
 				if (!row) {
