@@ -9,7 +9,7 @@ module.exports = {
 			message.channel.send(leetR);
 		}
 	},
-	eval: function(command, message, suffix, bot, Discord, sql) {
+	eval: function(command, message, suffix, bot, Discord, sql, config) {
 		if (command == '.eval') {
 			if (message.author.id != '179114344863367169') return;
 			var eErr = false;

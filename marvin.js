@@ -101,7 +101,7 @@ bot.on('message', message => {
 bot.on('message', message => {
 	funcs.instadelete(bot, message);
 	funcs.logger(bot, message, moment);
-	funcs.levels(bot, message, sql);
+	funcs.levels(bot, message, sql, config);
 });
 
  // send to console

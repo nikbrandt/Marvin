@@ -17,7 +17,7 @@ module.exports = {
 			bot.logLog.send(`**${message.guild.name}** #${message.channel.name} *${message.author.tag}* at ${moment(message.createdTimestamp).format('h:mm:ss a')}\n ${message.content}`);
 		}
 	},
-	levels: function(bot, message, sql) {
+	levels: function(bot, message, sql, config) {
 		sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
 			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
 			if (row3.levels == 'false' || row3.levels === false) return;
