@@ -34,9 +34,9 @@ module.exports = {
 					if (Date.now() - row.lastXP < config.xp.xpAdd) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = ${usID} AND guildId = ${gID}`);
 					var xpM;
 					if (Date.now() - row.lastMessage < 15000) {
-						xpM = row.xpM * 1.025;
+						xpM = row.xpM * 1.015;
 					} else if (Date.now() - row.lastMessage < 30000) {
-						xpM = row.xpM * 1.0125;
+						xpM = row.xpM * 1.01;
 					} else if (Date.now() - row.lastMessage < 60000) {
 						xpM = row.xpM * 1.005;
 					} else {

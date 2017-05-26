@@ -117,8 +117,3 @@ process.on('unhandledRejection', err => {
 });
 
 bot.login(config.token);
-
-/* stuff to add:
- - airhorn should have per-player data, stored in .json (part of .profile)
- - okxbot
-*/
