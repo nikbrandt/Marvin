@@ -18,6 +18,6 @@ module.exports = {
 		if (command == 'nintenbot' || command == 'ninten') message.channel.send({files: ['http://i.imgur.com/qKlnz5n.jpg']});
 	},
 	foreveralone: function(command, message) {
-		if (command == 'foreveralone' || command == 'bots' || command == 'marvin') message.channel.send({files: ['http://i.imgur.com/gyqGdK5.jpg']});
+		if (command == 'foreveralone' || command == 'bots') message.channel.send({files: ['http://i.imgur.com/gyqGdK5.jpg']});
 	}
 };
