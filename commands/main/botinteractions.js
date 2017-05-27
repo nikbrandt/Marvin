@@ -71,9 +71,9 @@ module.exports = {
 			if (args[1] !== undefined && isNaN(dSides)) return message.channel.send(`Value \`${args[1]}\` is not a number.`);
 			if (args[0] !== undefined && isNaN(dCount)) return message.channel.send(`Value \`${args[0]}\` is not a number.`);
 			if (dCount > 4) return message.channel.send('I\'m not rolling more than 4 dice for ya\'');
-			if (dSides > 12) return message.channel.send(`Really? A ${dSides} sided die?`);
+			if (dSides > 120) return message.channel.send(`Really? A ${dSides} sided die?`);
 			if (dCount < 1) return message.channel.send('How does one role a negative amount of dice 🤔');
-			if (dSides < 2) return message.channel.send('How does a die contain less than two sides 🤔');
+			if (dSides < 1) return message.channel.send('How does a die contain less than one side 🤔');
 			if (dCount === 1) return message.channel.send(`You rolled a ${dSides} sided die, resulting in a **${rand(dSides)}**`);
 			message.channel.send(`You rolled ${numtoword.toWords(dCount)} ${numtoword.toWords(dSides)}-sided dice, resulting in **${rand(dSides)}**${diceCalc(dCount - 1, dSides)}`);
 		}

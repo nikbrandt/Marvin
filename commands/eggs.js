@@ -6,23 +6,18 @@ module.exports = {
 		}
 	},
 	techno: function(command, message) {
-		if (command == 'techno') {
-			message.channel.send('*Technocoder#9418 - 4/22/17 at 11:03 PM from #general*\n```YOU\'VE HIDDEN THE LAMB SAUCE YOU LAZY FUCKING BASTARD\n```');
-		}
+		if (command == 'techno') message.channel.send('*Technocoder#9418 - 4/22/17 at 11:03 PM from #general*\n```YOU\'VE HIDDEN THE LAMB SAUCE YOU LAZY FUCKING BASTARD\n```');
 	},
 	gymno: function(command, message) {
-		if (command == 'gymno') {
-			message.channel.send({files: ['http://i.imgur.com/IJCXt7X.jpg']});
-		}
+		if (command == 'gymno') message.channel.send({files: ['http://i.imgur.com/IJCXt7X.jpg']});
 	},
 	fuckthis: function(command, message) {
-		if (command == 'ft' || command == 'fuckthis') {
-			message.channel.send({files: ['http://i.imgur.com/IC84G1h.gif']});
-		}
+		if (command == 'ft' || command == 'fuckthis') message.channel.send({files: ['http://i.imgur.com/IC84G1h.gif']});
 	},
 	nintenbot: function(command, message) {
-		if (command == 'nintenbot' || command == 'ninten') {
-			message.channel.send({files: ['http://i.imgur.com/qKlnz5n.jpg']});
-		}
+		if (command == 'nintenbot' || command == 'ninten') message.channel.send({files: ['http://i.imgur.com/qKlnz5n.jpg']});
+	},
+	foreveralone: function(command, message) {
+		if (command == 'foreveralone' || command == 'bots' || command == 'marvin') message.channel.send({files: ['http://i.imgur.com/gyqGdK5.jpg']});
 	}
 };

@@ -62,6 +62,7 @@ bot.on('message', message => {
 	eggs.gymno(command, message);
 	eggs.fuckthis(command, message);
 	eggs.nintenbot(command, message);
+	eggs.foreveralone(command, message);
  // other commands
 	qr.lenny(command, message);
 	qr.marvin(command, message, bot);
