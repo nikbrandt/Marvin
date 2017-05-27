@@ -23,10 +23,9 @@ module.exports = {
 				var server = bot.guilds.get(args[0]);
 				if (server === undefined || args[0] === undefined) server = message.guild;
 			} else server = message.guild;
-			var sOnA = server.presences.map(p=>p.status != 'offline').length;
-			var sBotA = 0;
-			server.members.map(mem=>{if (mem.user.bot === true) sBotA++;});
-			var roleA = server.roles.map(()=>{}).length;
+			var sOnA = server.presences.filter(p=>p.status != 'offline').size;
+			var sBotA = server.members.filter(mem => mem.user.bot).size;
+			var roleA = server.roles.size;
 			var rolesL = server.roles.map(ro => ro.name);
 			if (rolesL.length > 10) {
 				var slice = rolesL.length - 10;

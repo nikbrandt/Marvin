@@ -43,7 +43,6 @@ module.exports = {
 				embedM = new Discord.RichEmbed()
 					.setAuthor('Eval')
 					.addField(':pencil2: Input', '```js\n' + suffix + '\n```')
-					.addField(':clipboard: Output', '```js\n' + evaled + '\n```')
 					.addField(':warning: Error', '```js\n' + eErrM + '\n```');
 			}
 			message.channel.send({embed: embedM}).then(msg => setTimeout(function(){
@@ -52,11 +51,7 @@ module.exports = {
 				}
 				if (evaled.length > 100) {
 					var eLS = evaled.length - 100;
-					var eLSpSL = eLS + eSL;
-					evaled = evaled.slice(0, -eLS) + '\n\n// Trimmed ' + eLSpSL + ' chars';
-				}
-				if (evaled.includes('\n')) {
-					evaled = '``js\n' + evaled + '\n``';
+					evaled = evaled.slice(0, -eLS) + '\n\n// Trimmed ' + eLS + ' chars';
 				}
 				var eErrEM;
 				if (eErr === true) {

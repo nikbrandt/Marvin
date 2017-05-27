@@ -15,7 +15,7 @@ module.exports = {
 			url: 'http://discord.me/marvin',
 			fields: [{
 				name: 'Bot Interactions',
-				value: '`.say` - Have me repeat whatever you want \n`.joke [add]` - View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`'
+				value: '`.say` - Have me repeat whatever you want \n`.joke [add]` - View a joke or add one of your own (jokes expire after 1 week)\n`.profile` - Profiles system. More help with `.p h`\n`.dice [amount] [sides]` - Roll some dice.'
 			}]
 		}});
 	},
@@ -72,7 +72,7 @@ module.exports = {
 			},
 			{
 				name: 'Bot Interactions',
-				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`'
+				value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`\n`.dice [amount] [sides]` - Roll some dice.'
 			},
 			{
 				name: 'API',

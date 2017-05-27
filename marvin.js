@@ -1,24 +1,19 @@
  // bot creation
 const Discord = require('discord.js');
 const bot = new Discord.Client();
- // cleverbot.io
+ // config access
+const config = require('./config.json');
+ // ALL THE MODULES
 const cleverbot = require('cleverbot.io');
 const clever = new cleverbot('cPzDw3MhlM6GfbxU','P9mRGnXV6JKydmqJkitVHp4WLuJVLeT6');
 clever.setNick('Marvin');
- /* exported err, session */
 clever.create(function (err, session) {});
- // config access
-const config = require('./config.json');
- // sql access
 const sql = require('sqlite');
-// file storage
 const fs = require('fs');
-// leet
 const leet = require('leet');
-// canvas
-var Canvas = require('canvas');
-// moment.js
+const Canvas = require('canvas');
 const moment = require('moment');
+const numtoword = require('number-to-words');
 // command accesss
 const eggs = require('./commands/eggs.js');
 const coms1 = require('./commands/coms1.js');
@@ -73,8 +68,8 @@ bot.on('message', message => {
 	qr.L(command, message);
 	qr.invite(command, message);
 	bi.say(command, message, suffix);
-	// bi.game(command, message, args, bot, suffix);
 	bi.joke(command, message, suffix, args);
+	bi.dice(command, message, args, numtoword);
 	apis.ball(command, message);
 	apis.choose(command, message);
 	apis.ss(command, message, args);
@@ -91,7 +86,6 @@ bot.on('message', message => {
 	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config);
 	levels.xpinfo(command, message, config, colors);
 	levels.leaderboard(command, message, args, sql, bot);
-	// other.airhorn(command, message, args);
 	admin.kys(command, message);
 	admin.listservers(command, message, bot);
 	admin.serverinfo(command, message, bot, args, moment);
