@@ -47,13 +47,27 @@ bot.on('ready', () => {
 
 bot.on('message', message => {
 	if (message.author.bot) return;
-	if (!message.content.startsWith(config.prefix)) return;
+	sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row => {
+		if (!row) {
+			sql.run('INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)', [message.guild.id, '.', 'true']);
+			return bot.prefix = '.';
+		}
+		bot.prefix = row.prefix;
+	});
+	if (!message.content.startsWith(bot.prefix) && !message.content.startsWith('<@' + bot.user.id + '>')) return;
 	if (message.channel.type != 'text') return;
 
-	let command = message.content.split(' ')[0].slice(config.prefix.length);
+	var command;
+	if (message.content.startsWith(bot.prefix)) command = message.content.split(' ')[0].slice(bot.prefix.length);
 
 	let args = message.content.split(' ').slice(1);
-	let suffix = message.content.slice(command.length + config.prefix.length + 1);
+
+	if (message.content.startsWith('<@' + bot.user.id + '>')) {
+		command = message.content.split(' ')[1];
+		args = args.slice(1);
+	}
+
+	let suffix = args.join(' ');
 
  // easter eggs
 	eggs.paasta(command, message);
