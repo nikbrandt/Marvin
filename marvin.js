@@ -33,6 +33,7 @@ const profiles = require('./commands/main/profiles.js');
 const levels = require('./commands/main/levels.js');
 const guild = require('./commands/main/guilds.js');
 const admin = require('./commands/main/admin.js');
+const mc = require('./commands/main/apis/mc.js');
 
 var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
@@ -42,8 +43,6 @@ bot.on('ready', () => {
 	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
 	funcs.games(bot);
-	bot.logChannel = bot.channels.get('240975136084197377'); // temporary
-	bot.logChannelG = true;
 });
 
 bot.on('message', message => {
@@ -81,6 +80,7 @@ bot.on('message', message => {
 	trump.trump(command, message, suffix);
 	calc.calc(command, message, suffix, bot);
 	xkcd.xkcd(command, message, bot, args);
+	mc.mc(command, message, args, suffix, Discord, bot);
 	other.leet(command, message, leet, args, suffix);
 	other.eval(command, message, suffix, bot, Discord, sql, config);
 	guild.guild(command, message, args, suffix, sql);

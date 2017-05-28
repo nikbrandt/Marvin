@@ -48,10 +48,18 @@ module.exports = {
 					var xpMin = xpMN - config.xp.min;
 					var xpMax = xpMN + config.xp.max;
 					var xpAdd = Math.round(Math.random() * (xpMax - xpMin) + xpMin);
-					if (row.xpCurrent + xpAdd >= Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel))) {
-						sql.run(`UPDATE guildModeration SET xpLevel = ${row.xpLevel + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
-						sql.run(`UPDATE guildModeration SET xpCurrent = ${Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel)) - (row.xpCurrent - xpAdd)} WHERE userId = '${usID}' AND guildId = '${gID}'`);
-						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${row.xpLevel + 1}**!`);
+					var lvArray = [];
+					var lvNum = 0;
+					var xpL = 0;
+					for (var i = 0; i < 101; i++) {
+						lvNum += Math.round(config.xp.levelOne * Math.pow(config.xp.eqMult, i));
+						lvArray.push(lvNum);
+						if (lvNum < row.xpTotal) xpL = i + 1;
+					}
+					if (row.xpTotal + xpAdd >= lvArray[xpL]) {
+						sql.run(`UPDATE guildModeration SET xpLevel = ${xpL + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
+						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpTotal - lvArray[xpL]} WHERE userId = '${usID}' AND guildId = '${gID}'`);
+						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${xpL + 1}**!`);
 					} else {
 						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpCurrent + xpAdd} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 					}
@@ -65,7 +73,7 @@ module.exports = {
 	},
 	games: function(bot) {
 		setInterval(() => {
-			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life'];
+			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life', 'what a lonely life', 'here i am, brain the size of a planet..', '.die', '.mc :o'];
 			bot.user.setGame('.help | ' + games[Math.floor(Math.random() * games.length)], 'https://www.twitch.tv/hey');
 		}, 30000);
 	}
