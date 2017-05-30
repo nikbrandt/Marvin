@@ -119,5 +119,45 @@ module.exports = {
 				bot.logChannelG = true;
 			}
 		}
+	},
+	userinfo: (command, message, bot, args, moment) => {
+		if (command == 'userinfo' || command == 'whois') {
+			var member;
+			if(message.author.id === '179114344863367169') {
+				if (args[1] != undefined) member = bot.guilds.get(args[1]).member(args[0]);
+				else member = message.guild.member(args[0]);
+				if (member === undefined || args[0] === undefined) member = message.member;
+			} else member = message.member;
+			var user = member.user;
+			var muteStatus;
+			var deafStatus;
+			if (member.selfMute && member.serverMute) muteStatus = 'user and server';
+			else if (member.selfMute && !member.serverMute) muteStatus = 'user';
+			else if (!member.selfMute && member.serverMute) muteStatus = 'server';
+			else muteStatus = 'false';
+			if (member.selfDeaf && member.serverDeaf) deafStatus = 'user and server';
+			else if (member.selfDeaf && !member.serverDeaf) deafStatus = 'user';
+			else if (!member.selfDeaf && member.serverDeaf) deafStatus = 'server';
+			else deafStatus = 'false';
+			var roles = member.roles.map(r => r.name).join(', ');
+			var game;
+			if (user.presence.game) game = user.presence.game.name;
+			else game = 'none';
+			message.channel.send({embed: {
+				author: {
+					name: user.tag,
+					icon_url: user.avatarURL
+				},
+				color: member.displayColor,
+				fields: [{
+					name: 'User Info',
+					value: `**Joined on**: ${moment(user.createdTimestamp).format('MMM Do YYYY')} (${moment(user.createdTimestamp).fromNow()})\n**Presence**: ${user.presence.status}\n**Game**: \`${game}\`\n**ID**: ${user.id}\n**Bot**: ${user.bot}`
+				},
+				{
+					name: 'Member Info',
+					value: `**Nickname**: ${member.nickname}\n**Muted**: ${muteStatus}\n**Deafened**: ${deafStatus}\n**Roles**: ${roles}\n**Joined on**: ${moment(member.joinedTimestamp).format('MMM Do YYYY')} (${moment(member.joinedTimestamp).fromNow()})`
+				}]
+			}});
+		}
 	}
 };

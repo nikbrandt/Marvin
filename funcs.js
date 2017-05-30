@@ -56,7 +56,7 @@ module.exports = {
 						lvArray.push(lvNum);
 						if (lvNum < row.xpTotal) xpL = i + 1;
 					}
-					if (row.xpTotal + xpAdd >= lvArray[xpL]) {
+					if (row.xpTotal + xpAdd >= lvArray[xpL] && xpL + 1 != row.xpLevel) {
 						sql.run(`UPDATE guildModeration SET xpLevel = ${xpL + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpTotal - lvArray[xpL]} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${xpL + 1}**!`);

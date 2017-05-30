@@ -60,14 +60,15 @@ module.exports = {
 							if (bot.mcuuid === undefined) return message.channel.send('You did not provide me with a valid username or UUID.');
 							request('https://api.mojang.com/user/profiles/' + bot.mcuuid + '/names', (error, response, body) => {
 								if (!error && response.statusCode == 200) {
-									let hist = JSON.parse(body);
+									let hist = JSON.parse(body).reverse();
 									var histSlice = 0;
 									if (hist.length > 10) histSlice = hist.length - 10;
 									hist = hist.slice(histSlice);
 									let histEnd = hist.map(h => {
 										let hName = h.name;
 										let hDate = h.changedToAt;
-										return (`**${hName}**, ${moment(hDate).format('h:mm:ss A on MMM Do YYYY')}`);
+										if (hDate) return (`**${hName}**, ${moment(hDate).format('h:mm:ss A on MMM Do, YYYY')}`);
+										else return (`**${hName}**, original name`);
 									});
 									var plusM = '';
 									if (histSlice) plusM = `\n${histSlice} more names.`;
@@ -85,14 +86,15 @@ module.exports = {
 				if (bot.mcuuid === undefined) return message.channel.send('You did not provide me with a valid username or UUID.');
 				request('https://api.mojang.com/user/profiles/' + bot.mcuuid + '/names', (error, response, body) => {
 					if (!error && response.statusCode == 200) {
-						let hist = JSON.parse(body);
+						let hist = JSON.parse(body).reverse();
 						var histSlice = 0;
 						if (hist.length > 10) histSlice = hist.length - 10;
 						hist = hist.slice(histSlice);
 						let histEnd = hist.map(h => {
 							let hName = h.name;
 							let hDate = h.changedToAt;
-							return (`**${hName}**, ${moment(hDate).format('h:mm:ss A on MMM Do YYYY')}`);
+							if (hDate) return (`**${hName}**, ${moment(hDate).format('h:mm:ss A on MMM Do, YYYY')}`);
+							else return (`**${hName}**, original name`);
 						});
 						var plusM = '';
 						if (histSlice) plusM = `\n${histSlice} more names.`;

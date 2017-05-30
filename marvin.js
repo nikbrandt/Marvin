@@ -39,26 +39,30 @@ var colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed
 
 sql.open('./media/main.sqlite');
 
+function prefixesUpdate() {
+	sql.all('SELECT * FROM guildOptions').then(rows=>{
+		for (var i = 0; i < rows.length; i++) {
+			bot.prefixes[rows[i].guildId] = rows[i].prefix;
+		}
+	});
+}
+
 bot.on('ready', () => {
 	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
 	funcs.games(bot);
+	bot.prefixes = {};
+	prefixesUpdate();
+	setInterval(() => {prefixesUpdate();}, 15000);
 });
 
-bot.on('message', message => {
+bot.on('message', message => { // prefix problem :o
+	if (!message.guild.me.permissions.has('SEND_MESSAGES')) return;
 	if (message.author.bot) return;
-	sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row => {
-		if (!row) {
-			sql.run('INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)', [message.guild.id, '.', 'true']);
-			return bot.prefix = '.';
-		}
-		bot.prefix = row.prefix;
-	});
-	if (!message.content.startsWith(bot.prefix) && !message.content.startsWith('<@' + bot.user.id + '>')) return;
-	if (message.channel.type != 'text') return;
+	if (!message.content.startsWith(bot.prefixes[message.guild.id]) && !message.content.startsWith('<@' + bot.user.id + '>')) return;
 
 	var command;
-	if (message.content.startsWith(bot.prefix)) command = message.content.split(' ')[0].slice(bot.prefix.length);
+	if (message.content.startsWith(bot.prefixes[message.guild.id])) command = message.content.split(' ')[0].slice(bot.prefixes[message.guild.id].length);
 
 	let args = message.content.split(' ').slice(1);
 
@@ -68,6 +72,10 @@ bot.on('message', message => {
 	}
 
 	let suffix = args.join(' ');
+
+	help.help(command, message, bot, suffix, colors);
+
+	if (message.channel.type != 'text') return;
 
  // easter eggs
 	eggs.paasta(command, message);
@@ -106,8 +114,8 @@ bot.on('message', message => {
 	admin.serverinfo(command, message, bot, args, moment);
 	admin.sendmessage(command, message, bot, args, suffix);
 	admin.logger(command, message, bot, args);
+	admin.userinfo(command, message, bot, args, moment);
 	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
-	help.help(command, message, bot, suffix, colors);
 });
 // other stuffs with message event
 bot.on('message', message => {
