@@ -18,6 +18,7 @@ module.exports = {
 				helpOne.info(message, bot, colors);
 			} else if (uSuffix == 'ALL') {
 				helpOne.al(message, bot, colors);
+				message.channel.send('Check your DMs').then(msg=>msg.delete(10000));
 			} else if (uSuffix == 'OWNER') {
 				helpOne.owner(message, bot);
 			} else {

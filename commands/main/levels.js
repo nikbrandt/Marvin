@@ -64,11 +64,15 @@ module.exports = {
 		if (command == 'leaderboard' || command == 'lb') {
 			var top5;
 			var us = ['', '', '', '', ''];
-			if (args[0] === undefined || args[0] == 'server' || args[0] == 'local' || args[0] == 'guild') {
+			if (args[0] === undefined || args[0] == 'server' || args[0] == 'local' || args[0] == 'guild' || args[0].length == 18) {
 				var gID = message.guild.id;
 				if (message.author.id == '179114344863367169') {
 					if (args[1] == undefined) {
-						bot.bad = 'yes';
+						gID = bot.guilds.get(args[0]).id;
+						if (gID === undefined) {
+							message.channel.send('that\'s not a guild lol');
+							return gID = message.guild.id;
+						}
 					} else {
 						gID = bot.guilds.get(args[1]).id;
 						if (gID === undefined) {

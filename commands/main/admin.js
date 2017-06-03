@@ -151,11 +151,13 @@ module.exports = {
 				color: member.displayColor,
 				fields: [{
 					name: 'User Info',
-					value: `**Joined on**: ${moment(user.createdTimestamp).format('MMM Do YYYY')} (${moment(user.createdTimestamp).fromNow()})\n**Presence**: ${user.presence.status}\n**Game**: \`${game}\`\n**ID**: ${user.id}\n**Bot**: ${user.bot}`
+					value: `**Joined on**: ${moment(user.createdTimestamp).format('MMM Do YYYY')} (${moment(user.createdTimestamp).fromNow()})\n**Presence**: ${user.presence.status}\n**Game**: \`${game}\`\n**ID**: ${user.id}\n**Bot**: ${user.bot}`,
+					inline: true
 				},
 				{
 					name: 'Member Info',
-					value: `**Nickname**: ${member.nickname}\n**Muted**: ${muteStatus}\n**Deafened**: ${deafStatus}\n**Roles**: ${roles}\n**Joined on**: ${moment(member.joinedTimestamp).format('MMM Do YYYY')} (${moment(member.joinedTimestamp).fromNow()})`
+					value: `**Nickname**: ${member.nickname}\n**Muted**: ${muteStatus}\n**Deafened**: ${deafStatus}\n**Roles**: ${roles}\n**Joined on**: ${moment(member.joinedTimestamp).format('MMM Do YYYY')} (${moment(member.joinedTimestamp).fromNow()})`,
+					inline: true
 				}]
 			}});
 		}

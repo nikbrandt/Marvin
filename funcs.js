@@ -73,7 +73,7 @@ module.exports = {
 	},
 	games: function(bot) {
 		setInterval(() => {
-			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life', 'what a lonely life', 'here i am, brain the size of a planet..', '.die', '.mc :o'];
+			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life', 'what a lonely life', 'here i am, brain the size of a planet..', '.die 4 69', '.mc :o'];
 			bot.user.setGame('.help | ' + games[Math.floor(Math.random() * games.length)], 'https://www.twitch.tv/hey');
 		}, 30000);
 	}

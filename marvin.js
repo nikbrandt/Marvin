@@ -59,10 +59,13 @@ bot.on('ready', () => {
 bot.on('message', message => { // prefix problem :o
 	if (!message.guild.me.permissions.has('SEND_MESSAGES')) return;
 	if (message.author.bot) return;
-	if (!message.content.startsWith(bot.prefixes[message.guild.id]) && !message.content.startsWith('<@' + bot.user.id + '>')) return;
+	if (message.content.includes('<@' + bot.user.id + '>') && !message.content.startsWith('<@' + bot.user.id + '>') && message.author.id == '179114344863367169') return message.channel.send('Hello master.');
+	var prefix = bot.prefixes[message.guild.id];
+	if (prefix === undefined) prefix = '.';
+	if (!message.content.startsWith(prefix) && !message.content.startsWith('<@' + bot.user.id + '>')) return;
 
 	var command;
-	if (message.content.startsWith(bot.prefixes[message.guild.id])) command = message.content.split(' ')[0].slice(bot.prefixes[message.guild.id].length);
+	if (message.content.startsWith(prefix)) command = message.content.split(' ')[0].slice(prefix.length);
 
 	let args = message.content.split(' ').slice(1);
 
