@@ -5,7 +5,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
  // ALL THE MODULES
 const cleverbot = require('cleverbot.io');
-const clever = new cleverbot('cPzDw3MhlM6GfbxU','P9mRGnXV6JKydmqJkitVHp4WLuJVLeT6');
+const clever = new cleverbot(config.clever.user, config.clever.key);
 clever.setNick('Marvin');
 clever.create(function (err, session) {});
 const sql = require('sqlite');
