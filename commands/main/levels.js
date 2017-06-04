@@ -1,31 +1,18 @@
 module.exports = {
-	xp: function(command, message, sql, args, suffix, Discord, colors, bot, config) {
+	xp: function(command, message, sql, args, suffix, Discord, colors, bot, config, findMember) {
 		if (command == 'xp') {
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
 				if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
 				if (row3.levels == 'false' || row3.levels === false) return message.channel.send('This guild\'s staff have disabled leveling.');
+				var memObj = findMember(message, args, suffix);
 				var usID;
-				if (message.mentions.users.first()) {
-					usID = message.mentions.users.first().id;
-				} else if (args[0] !== undefined && args[0] != '') {
-					var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.toUpperCase());
-					if (bFindU == undefined) {
-						bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.toUpperCase());
-					}
-					if (bFindU == undefined) {
-						return message.channel.send('Could not find user by the name of `' + args[0] + '`');
-					} else {
-						usID = bFindU.id;
-					}
-				} else {
-					usID = message.author.id;
-				}
+				if (memObj === undefined) usID = message.author.id;
+				else usID = memObj.user.id;
 				var gID = message.guild.id;
 				var us = bot.users.get(usID);
 				sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => { // eslint-disable-line quotes
-					if (!row) return message.channel.send(`**${us.username}** has no XP.`);
 					sql.get(`SELECT * FROM moderation WHERE userId = '${usID}'`).then(row2 => {
-						if (!row2) return message.channel.send(`**${us.username}** has no XP.`);
+						if (!row2 || !row) return message.channel.send(`**${us.username}** has no XP.`);
 						var nl = config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1);
 						message.channel.send(`**${us.username}** (*${row2.gXP} global XP*)\nXP: \`${row.xpCurrent}\` | Total XP: \`${row.xpTotal}\` | Level: \`${row.xpLevel}\`\n\`${Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1)) - row.xpCurrent}\` XP to level ${row.xpLevel + 1} (${Math.round(row.xpCurrent / nl * 1000) / 10}%)`);
 					});
@@ -67,11 +54,13 @@ module.exports = {
 			if (args[0] === undefined || args[0] == 'server' || args[0] == 'local' || args[0] == 'guild' || args[0].length == 18) {
 				var gID = message.guild.id;
 				if (message.author.id == '179114344863367169') {
-					if (args[1] == undefined) {
-						gID = bot.guilds.get(args[0]).id;
-						if (gID === undefined) {
-							message.channel.send('that\'s not a guild lol');
-							return gID = message.guild.id;
+					if (args[1] === undefined) {
+						if (args[0] !== undefined) {
+							gID = bot.guilds.get(args[0]).id;
+							if (gID === undefined) {
+								message.channel.send('that\'s not a guild lol');
+								return gID = message.guild.id;
+							}
 						}
 					} else {
 						gID = bot.guilds.get(args[1]).id;

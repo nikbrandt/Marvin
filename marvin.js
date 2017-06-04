@@ -47,6 +47,29 @@ function prefixesUpdate() {
 	});
 }
 
+function findMember(message, args, suffix) {
+	var member;
+	if (message.mentions.members.first()) {
+		member = message.mentions.members.first();
+	} else if (args[0] !== undefined && args[0] != '') {
+		var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.toUpperCase());
+		if (bFindU == undefined) {
+			bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.toUpperCase());
+		}
+		if (bFindU == undefined) {
+			return {user: undefined, member: undefined};
+		} else {
+			member = bFindU;
+		}
+	} else {
+		member = message.member;
+	}
+	return {
+		user: member.user,
+		member: member
+	};
+}
+
 bot.on('ready', () => {
 	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
@@ -56,7 +79,7 @@ bot.on('ready', () => {
 	setInterval(() => {prefixesUpdate();}, 15000);
 });
 
-bot.on('message', message => { // prefix problem :o
+bot.on('message', message => {
 	if (!message.guild.me.permissions.has('SEND_MESSAGES')) return;
 	if (message.author.bot) return;
 	if (message.content.includes('<@' + bot.user.id + '>') && !message.content.startsWith('<@' + bot.user.id + '>') && message.author.id == '179114344863367169') return message.channel.send('Hello master.');
@@ -108,8 +131,8 @@ bot.on('message', message => { // prefix problem :o
 	mc.mc(command, message, args, suffix, Discord, bot);
 	other.leet(command, message, leet, args, suffix);
 	other.eval(command, message, suffix, bot, Discord, sql, config);
-	guild.guild(command, message, args, suffix, sql);
-	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config);
+	guild.guild(command, message, args, suffix, sql, findMember, bot);
+	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config, findMember);
 	levels.xpinfo(command, message, config, colors);
 	levels.leaderboard(command, message, args, sql, bot);
 	admin.kys(command, message);
