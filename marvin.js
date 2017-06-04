@@ -80,6 +80,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
+	if (message.channel.type != 'text') return;
 	if (!message.guild.me.permissions.has('SEND_MESSAGES')) return;
 	if (message.author.bot) return;
 	if (message.content.includes('<@' + bot.user.id + '>') && !message.content.startsWith('<@' + bot.user.id + '>') && message.author.id == '179114344863367169') return message.channel.send('Hello master.');
@@ -100,8 +101,6 @@ bot.on('message', message => {
 	let suffix = args.join(' ');
 
 	help.help(command, message, bot, suffix, colors);
-
-	if (message.channel.type != 'text') return;
 
  // easter eggs
 	eggs.paasta(command, message);

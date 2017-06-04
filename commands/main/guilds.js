@@ -16,7 +16,6 @@ module.exports = {
 					if (args[1] == 'l' || args[1] == 'list') return message.channel.send('Possible options: `levels`, `prefix`, `staff <add/remove>`, `swears <list>`, `swearing <true/false>`, `staffRole <role mention/name>`, `useRole <true/false>`');
 					if (args[1] == 'levels' && args[2] != 'true' && args[2] != 'false') return message.channel.send('Value must be either `true` or `false`');
 					if (args[1] == 'prefix' && args[2].length > 5) return message.channel.send('That long of a prefix? No thanks.');
-					if (args[1] == 'swears' && args[2] === undefined) return message.channel.send('I can\'t add nothing to the swear list.');
 					if (args[1] == 'swearing' && args[2] !== 'true' && args[2] != 'false') return message.channel.send('Value must be either `true` or `false`');
 					if (args[1] == 'staffRole' && args[2] === undefined) return message.channel.send('I\'m pretty sure you don\'t have a role with no name.');
 					if (args[1] == 'useRole' && args[2] != 'true' && args[2] != 'false') return message.channel.send('Value must be either `true` or `false`');
@@ -46,7 +45,8 @@ module.exports = {
 					if (args[1] == 'swears') {
 						if (args[2] == 'add') {
 							if (args[3] === undefined) return message.channel.send('I can\'t add nothing to the swear list..');
-							inp = ', ' + args.slice(3).join(' ');
+							if (row.swears === undefined || row.swears === null || row.swears == '') inp = args.slice(3).join(' ');
+							else inp = row.swears + ', ' + args.slice(3).join(' ');
 							out = 'include `' + args.slice(3).join(' ') + '`';
 						} else if (args[2] == 'remove') {
 							if (args[3] === undefined) return message.channel.send('How does one delete nothing?');
@@ -54,13 +54,13 @@ module.exports = {
 							for (let i = 0; i < swears.length; i++) {
 								inp = row.swears.replace(new RegExp(`${swears[i]}, |, ${swears[i]}|${swears[i]}`), '');
 							}
-							out = 'include `' + args.slice(3).join(' ') + '`';
+							out = 'disinclude `' + args.slice(3).join(' ') + '`';
 						} else {
 							var swearArray = [];
 							if (row.swears !== null && row.swears !== undefined && row.swears != '') for (let i = 0; i < row.swears.split(', ').length; i++) swearArray.push(row.swears.split(', ')[i]);
 							else swearArray = ['You have no swears set.'];
 							message.channel.send('Check your DMs.');
-							message.author.send(`Swears for **${message.guild.name}**:\n${swearArray.join(', ')}`);
+							return message.author.send(`Swears for **${message.guild.name}**:\n${swearArray.join(', ')}`);
 						}
 					}
 					sql.run(`UPDATE guildOptions SET ${args[1]} = '${inp}' WHERE guildId = ${gID}`);
