@@ -1,35 +1,36 @@
 {
-  "name": "marvin",
-  "version": "1.0.0",
-  "description": "A Discord bot with completely random features.",
-  "main": "marvin.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gymnophoria/Marvin.git"
-  },
-  "keywords": [
-    "Discord",
-    "bot",
-    "node.js",
-    "discord.js",
-    "javascript"
-  ],
-  "author": "Gymnophoria",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Gymnophoria/Marvin/issues"
-  },
-  "homepage": "https://github.com/Gymnophoria/Marvin#readme",
-  "dependencies": {
-    "canvas": "^1.6.5",
-    "cleverbot.io": "^1.0.4",
-    "discord.js": "^11.1.0",
-    "leet": "^1.3.0",
-    "moment": "^2.18.1",
-    "number-to-words": "^1.2.3",
-    "sqlite": "^2.8.0"
-  }
+ "name": "marvin",
+ "version": "1.0.0",
+ "description": "A Discord bot with completely random features.",
+ "main": "marvin.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/Gymnophoria/Marvin.git"
+ },
+ "keywords": [
+  "Discord",
+  "bot",
+  "node.js",
+  "discord.js",
+  "javascript"
+ ],
+ "author": "Gymnophoria",
+ "license": "Apache-2.0",
+ "bugs": {
+  "url": "https://github.com/Gymnophoria/Marvin/issues"
+ },
+ "homepage": "https://github.com/Gymnophoria/Marvin#readme",
+ "dependencies": {
+  "canvas": "^1.6.5",
+  "cleverbot.io": "^1.0.4",
+  "discord.js": "^11.1.0",
+  "leet": "^1.3.0",
+  "moment": "^2.18.1",
+  "number-to-words": "^1.2.3",
+  "request": "^2.81.0",
+  "sqlite": "^2.8.0"
+ }
 }
