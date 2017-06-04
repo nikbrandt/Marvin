@@ -43,6 +43,26 @@ module.exports = {
 							return message.channel.send(`Current **${message.guild.name}** Staff:\n${staffArray.join('\n')}`);
 						}
 					}
+					if (args[1] == 'swears') {
+						if (args[2] == 'add') {
+							if (args[3] === undefined) return message.channel.send('I can\'t add nothing to the swear list..');
+							inp = ', ' + args.slice(3).join(' ');
+							out = 'include `' + args.slice(3).join(' ') + '`';
+						} else if (args[2] == 'remove') {
+							if (args[3] === undefined) return message.channel.send('How does one delete nothing?');
+							let swears = args.slice(3).join(' ').split(', ');
+							for (let i = 0; i < swears.length; i++) {
+								inp = row.swears.replace(new RegExp(`${swears[i]}, |, ${swears[i]}|${swears[i]}`), '');
+							}
+							out = 'include `' + args.slice(3).join(' ') + '`';
+						} else {
+							var swearArray = [];
+							if (row.swears !== null && row.swears !== undefined && row.swears != '') for (let i = 0; i < row.swears.split(', ').length; i++) swearArray.push(row.swears.split(', ')[i]);
+							else swearArray = ['You have no swears set.'];
+							message.channel.send('Check your DMs.');
+							message.author.send(`Swears for **${message.guild.name}**:\n${swearArray.join(', ')}`);
+						}
+					}
 					sql.run(`UPDATE guildOptions SET ${args[1]} = '${inp}' WHERE guildId = ${gID}`);
 					message.channel.send(`Setting \`${args[1]}\` updated to ${out}`);
 				}
