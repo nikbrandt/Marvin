@@ -108,7 +108,7 @@ bot.on('message', message => { // prefix problem :o
 	trump.trump(command, message, suffix);
 	calc.calc(command, message, suffix, bot);
 	xkcd.xkcd(command, message, bot, args);
-	mc.mc(command, message, args, suffix, Discord, bot);
+	mc.mc(command, message, args, suffix, Discord);
 	other.leet(command, message, leet, args, suffix);
 	other.eval(command, message, suffix, bot, Discord, sql, config);
 	guild.guild(command, message, args, suffix, sql);
