@@ -8,7 +8,8 @@ module.exports = {
 			if (args[0] == '' || args[0] === undefined) {
 				usID = message.author.id;
 			} else if (args[0] == 'view' || args[0] == 'v') {
-				var memObj = findMember(message, args.slice(1), suffix.slice(args[0].length));
+				var memObj = findMember(message, args.slice(1), suffix.slice(args[0].length + 1));
+				if (memObj === undefined) return message.channel.send('Could not find member.');
 				usID = memObj.user.id;
 				usMem = memObj.member;
 			} else if (args[0] == 'help' || args[0] == 'h') {
