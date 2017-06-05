@@ -140,7 +140,7 @@ bot.on('message', message => {
 	admin.sendmessage(command, message, bot, args, suffix);
 	admin.logger(command, message, bot, args);
 	admin.userinfo(command, message, bot, args, moment);
-	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
+	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs, findMember);
 });
 // other stuffs with message event
 bot.on('message', message => {

@@ -1,27 +1,16 @@
 /* eslint-disable quotes */
 module.exports = {
-	profiles: function(command, message, args, suffix, sql, Discord, Canvas, fs) {
+	profiles: function(command, message, args, suffix, sql, Discord, Canvas, fs, findMember) {
 		if (command == 'profile' || command == 'profiles' || command == 'p') {
 			if (message.author.bot) return;
 			var usID;
+			var usMem = message.member;
 			if (args[0] == '' || args[0] === undefined) {
 				usID = message.author.id;
 			} else if (args[0] == 'view' || args[0] == 'v') {
-				if (message.mentions.users.first()) {
-					usID = message.mentions.users.first().id;
-				} else if (args[1] !== undefined && args[1] != '') {
-					var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.slice(args[0].length + 1).toUpperCase());
-					if (bFindU == undefined) {
-						bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.slice(args[0].length + 1).toUpperCase());
-					}
-					if (bFindU == undefined) {
-						return message.channel.send('Could not find user by the name of `' + args[1] + '`');
-					} else {
-						usID = bFindU.id;
-					}
-				} else {
-					usID = message.author.id;
-				}
+				var memObj = findMember(message, args.slice(1), suffix.slice(args[0].length));
+				usID = memObj.user.id;
+				usMem = memObj.member;
 			} else if (args[0] == 'help' || args[0] == 'h') {
 				var hEmbed = new Discord.RichEmbed()
 					.setTitle('Profiles')
@@ -79,8 +68,6 @@ module.exports = {
 			} else {
 				return message.channel.send('Argument `' + args[0] + '` not found. Please use `.profile help`');
 			}
-			var usMem = message.guild.members.find(val => val.id == usID);
-
 			var Image = Canvas.Image
 				, Font = Canvas.Font
 				,	canvas = new Canvas(500, 400)
