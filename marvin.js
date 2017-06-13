@@ -124,6 +124,7 @@ bot.on('message', message => {
 	bi.say(command, message, suffix);
 	bi.joke(command, message, suffix, args);
 	bi.dice(command, message, args, numtoword);
+	bi.suggest(command, message, suffix, bot);
 	apis.ball(command, message);
 	apis.choose(command, message);
 	apis.ss(command, message, args);

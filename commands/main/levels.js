@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = {
 	xp: function(command, message, sql, args, suffix, Discord, colors, bot, config, findMember) {
 		if (command == 'xp') {
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
@@ -36,7 +36,7 @@ module.exports = {
 		}
 	},
 	leaderboard: async (command, message, args, sql, bot) => {
-		const us = ['', '', '', '', ''];
+		let us = ['', '', '', '', ''];
 		let top5;
 
 		function usVal(num) {
@@ -55,8 +55,6 @@ module.exports = {
 			}
 		}
 		if (command == 'leaderboard' || command == 'lb') {
-			var top5;
-			var us = ['', '', '', '', ''];
 			if (args[0] === undefined || args[0] == 'server' || args[0] == 'local' || args[0] == 'guild' || args[0].length == 18) {
 				var gID = message.guild.id;
 				if (message.author.id == '179114344863367169') {

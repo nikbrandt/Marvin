@@ -81,5 +81,22 @@ module.exports = {
 			if (dCount === 1) return message.channel.send(`You rolled a ${dSides} sided die, resulting in a **${rand(dSides)}**`);
 			message.channel.send(`You rolled ${numtoword.toWords(dCount)} ${numtoword.toWords(dSides)}-sided dice, resulting in **${rand(dSides)}**${diceCalc(dCount - 1, dSides)}`);
 		}
+	},
+	suggest: (command, message, suffix, bot) => {
+		if (command == 'suggest' || command == 'request') {
+			message.channel.send('Your suggestion has been taken. Thanks!').then(msg => msg.delete(10000));
+			bot.channels.get('304429067892031490').send({embed: {
+				author: {
+					name: message.author.tag,
+					icon_url: message.author.avatarURL
+				},
+				description: suffix,
+				color: message.guild.owner.displayColor,
+				footer: {
+					text: `Sent in *${message.channel.name}* of *${message.guild.name}*`,
+					icon_url: message.guild.iconURL
+				}
+			}});
+		}
 	}
 };
