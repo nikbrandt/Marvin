@@ -6,13 +6,13 @@ module.exports.loadJsonFile = loadJsonFile;
 module.exports.saveJsonFile = saveJsonFile;
 module.exports.getRandomJoke = getRandomJoke;
 
-var jsonObject;
+let jsonObject;
 
 function cleanOldJokes(expiryTimeMilliseconds) {
-	var expireDate = new Date(Date.now() - new Date(expiryTimeMilliseconds));
-	for(var i = 0; i < jsonObject.length; i++) {
-		var date = new Date(jsonObject[i].date);
-		if(date < expireDate) {
+	const expireDate = new Date(Date.now() - new Date(expiryTimeMilliseconds));
+	for (let i = 0; i < jsonObject.length; i++) {
+		const date = new Date(jsonObject[i].date);
+		if (date < expireDate) {
 			jsonObject.splice(i, 1);
 			i--;
 		}
@@ -28,7 +28,7 @@ function saveJsonFile(filePath) {
 }
 
 function getRandomJoke() {
-	if(jsonObject.length > 0) {
+	if (jsonObject.length > 0) {
 		return jsonObject[Math.floor(Math.random() * (jsonObject.length))].joke;
 	} else {
 		return 'No jokes available ;(';

@@ -1,19 +1,19 @@
 /* eslint-disable quotes */
 module.exports = {
-	instadelete: function(bot, message) {
-		if (message.channel.id != 304430648708300800) return;
+	instadelete: function (bot, message) {
+		if (message.channel.id !== 304430648708300800) return;
 		message.delete(10000);
 	},
-	logger: function(bot, message, moment) {
+	logger: function (bot, message, moment) {
 		if (bot.logChannel === undefined) return;
-		if (message.channel.id == bot.logLog.id) return;
-		if (message.author.id == bot.user.id) return;
+		if (message.channel.id === bot.logLog.id) return;
+		if (message.author.id === bot.user.id) return;
 		if (bot.logChannelG === true) {
-			if (message.guild.id != bot.logChannel.id) return;
+			if (message.guild.id !== bot.logChannel.id) return;
 			bot.logLog.send(`**${message.guild.name}** #${message.channel.name} *${message.author.tag}* at ${moment(message.createdTimestamp).format('h:mm:ss a')}\n ${message.content}`);
 		}
 		if (bot.logChannelG === false) {
-			if (message.channel.id != bot.logChannel.id) return;
+			if (message.channel.id !== bot.logChannel.id) return;
 			bot.logLog.send(`**${message.guild.name}** #${message.channel.name} *${message.author.tag}* at ${moment(message.createdTimestamp).format('h:mm:ss a')}\n ${message.content}`);
 		}
 	},
@@ -32,7 +32,7 @@ module.exports = {
 					if (!row2) sql.run(`INSERT INTO moderation (userId, gBans, gKicks, gMutes, gWarns, gCases, gXP) VALUES (?, ?, ?, ?, ?, ?, ?)`, [usID, 0, 0, 0, 0, 0, 0]);
 					if (!row || !row2) return;
 					if (Date.now() - row.lastXP < config.xp.xpAdd) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = ${usID} AND guildId = ${gID}`);
-					var xpM;
+					let xpM;
 					if (Date.now() - row.lastMessage < 15000) {
 						xpM = row.xpM * 1.02;
 					} else if (Date.now() - row.lastMessage < 30000) {
@@ -44,19 +44,19 @@ module.exports = {
 					}
 					if (xpM > config.xp.maxMult) xpM = config.xp.maxMult;
 					sql.run(`UPDATE guildModeration SET xpM = ${xpM} WHERE userId = ${usID} AND guildId = ${gID}`);
-					var xpMN = Math.round(xpM * config.xp.base);
-					var xpMin = xpMN - config.xp.min;
-					var xpMax = xpMN + config.xp.max;
-					var xpAdd = Math.round(Math.random() * (xpMax - xpMin) + xpMin);
-					var lvArray = [];
-					var lvNum = 0;
-					var xpL = 0;
-					for (var i = 0; i < 101; i++) {
+					const xpMN = Math.round(xpM * config.xp.base);
+					const xpMin = xpMN - config.xp.min;
+					const xpMax = xpMN + config.xp.max;
+					const xpAdd = Math.round(Math.random() * (xpMax - xpMin) + xpMin);
+					const lvArray = [];
+					let lvNum = 0;
+					let xpL = 0;
+					for (let i = 0; i < 101; i++) {
 						lvNum += Math.round(config.xp.levelOne * Math.pow(config.xp.eqMult, i));
 						lvArray.push(lvNum);
 						if (lvNum < row.xpTotal) xpL = i + 1;
 					}
-					if (row.xpTotal + xpAdd >= lvArray[xpL] && xpL + 1 != row.xpLevel) {
+					if (row.xpTotal + xpAdd >= lvArray[xpL] && xpL + 1 !== row.xpLevel) {
 						sql.run(`UPDATE guildModeration SET xpLevel = ${xpL + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpTotal - lvArray[xpL]} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${xpL + 1}**!`);
@@ -71,9 +71,9 @@ module.exports = {
 			});
 		});
 	},
-	games: function(bot) {
+	games: function (bot) {
 		setInterval(() => {
-			var games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life', 'what a lonely life', 'here i am, brain the size of a planet..', '.die 4 69', '.mc :o'];
+			const games = ['.invite is cool', `${bot.guilds.size} servers`, `${bot.users.size} users`, 'tell your friends', 'textedit ftw', 'random joke: a social life', 'what a lonely life', 'here i am, brain the size of a planet..', '.die 4 69', '.mc :o'];
 			bot.user.setGame('.help | ' + games[Math.floor(Math.random() * games.length)], 'https://www.twitch.tv/hey');
 		}, 30000);
 	}

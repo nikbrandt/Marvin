@@ -1,30 +1,32 @@
 const jokes = require('../jokes.js');
 
 module.exports = {
-	say: function(command, message, suffix) {
-		if (command == 'say') {
+	say: function (command, message, suffix) {
+		if (command === 'say') {
 			message.channel.send(suffix.replace(/@/g, '@\u200b'));
 		}
 	},
-	game: function(command, message, args, bot, suffix) {
-		if (command == 'game') {
+	game: function (command, message, args, bot, suffix) {
+		if (command === 'game') {
 			if (args[0] === undefined || args[0] === '') {
 				message.channel.send('Correct syntax: `.game <game>`');
 				return;
 			}
-			message.channel.send({embed :{
-				color: 3447003,
-				fields: [{
-					name: 'Now playing',
-					value: suffix
-				}]
-			}});
+			message.channel.send({
+				embed: {
+					color: 3447003,
+					fields: [{
+						name: 'Now playing',
+						value: suffix
+					}]
+				}
+			});
 			bot.user.setGame('.help | ' + suffix);
 		}
 	},
-	joke: function(command, message, suffix, args) {
-		if (command == 'joke') {
-			var jokeJ = suffix.slice(4);
+	joke: function (command, message, suffix, args) {
+		if (command === 'joke') {
+			const jokeJ = suffix.slice(4);
 			if (jokeJ.includes('\n')) {
 				message.channel.send('Jokes should be only one line.');
 				return;
@@ -39,7 +41,7 @@ module.exports = {
 			}
 			jokes.loadJsonFile('./media/jokes.json');
 			jokes.cleanOldJokes(604800000);
-			if (args[0] == 'add') {
+			if (args[0] === 'add') {
 				jokes.addJoke(jokeJ);
 				message.channel.send('`' + jokeJ + '` added as joke.');
 				jokes.saveJsonFile('./media/jokes.json');
@@ -53,14 +55,16 @@ module.exports = {
 		function rand(num) {
 			return Math.floor(Math.random() * num) + 1;
 		}
+
 		function diceCalc(amount, sides) {
 			if (amount === 1) return ` and **${rand(sides)}**`;
 			if (amount === 2) return `, **${rand(sides)}**, and **${rand(sides)}**`;
 			return `, **${rand(sides)}**, **${rand(sides)}**, and **${rand(sides)}**`;
 		}
-		if (command == 'dice' || command == 'roll' || command == 'die') {
+
+		if (command === 'dice' || command === 'roll' || command === 'die') {
 			if (args[0] === undefined) return message.channel.send(`You rolled a **6 sided** die, resulting in a **${Math.floor(Math.random() * 5) + 1}**`);
-			var dCount, dSides;
+			let dCount, dSides;
 			if (args[0] !== undefined && args[1] !== undefined) {
 				dCount = parseInt(args[0], 10);
 				dSides = parseInt(args[1], 10);
@@ -76,6 +80,23 @@ module.exports = {
 			if (dSides < 1) return message.channel.send('How does a die contain less than one side 🤔');
 			if (dCount === 1) return message.channel.send(`You rolled a ${dSides} sided die, resulting in a **${rand(dSides)}**`);
 			message.channel.send(`You rolled ${numtoword.toWords(dCount)} ${numtoword.toWords(dSides)}-sided dice, resulting in **${rand(dSides)}**${diceCalc(dCount - 1, dSides)}`);
+		}
+	},
+	suggest: (command, message, suffix, bot) => {
+		if (command == 'suggest' || command == 'request') {
+			message.channel.send('Your suggestion has been taken. Thanks!').then(msg => msg.delete(10000));
+			bot.channels.get('304429067892031490').send({embed: {
+				author: {
+					name: message.author.tag,
+					icon_url: message.author.avatarURL
+				},
+				description: suffix,
+				color: message.guild.owner.displayColor,
+				footer: {
+					text: `Sent in *${message.channel.name}* of *${message.guild.name}*`,
+					icon_url: message.guild.iconURL
+				}
+			}});
 		}
 	}
 };
