@@ -59,6 +59,21 @@ function findMember(message, args, suffix) {
 	return {user: member.user,member: member};
 }
 
+function checkStaff(member) {
+	sql.get(`SELECT * FROM guildOptions WHERE guildId = ${member.guild.id}`).then(row => {
+		if (!row) {
+			sql.run('INSERT INTO guildOptions (guildId, prefix, levels, swearing, useRole) VALUES (?, ?, ?, ?, ?)', [member.guild.id, '.', 'true', 'true', 'false']);
+			return undefined;
+		}
+		let isStaff = false;
+		if (row.useRole === true && row.staffRole !== null && row.staffRole !== '') {
+			if (member.roles.map(r=>r.id).includes(row.staffRole)) isStaff = true;
+		}
+		if (row.staff.includes(member.id)) isStaff = true;
+		return isStaff;
+	});
+}
+
 bot.on('ready', () => {
 	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
