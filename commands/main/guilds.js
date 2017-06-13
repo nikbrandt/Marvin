@@ -9,7 +9,11 @@ module.exports = {
 					return message.channel.send('Current Options:\nLevels enabled: `true`\nPrefix: `.`');
 				}
 				if (args[0] == 'settings' || args[0] == 'options' || args[0] == undefined) {
-					message.channel.send(`Current Options:\nLevels enabled: \`${row.levels}\`\nPrefix: \`${row.prefix}\`\n*Use **g s swears** for a list of swears, and **g s staff** for a list of staff*`);
+					let sr1 = message.guild.roles.get(row.staffRole);
+					let sr;
+					if (sr1 === undefined) sr = 'none';
+					else sr = sr1.name;
+					message.channel.send(`Current Options for **${message.guild.name}**:\nLevels enabled: \`${row.levels}\`\nPrefix: \`${row.prefix}\`\nSwearing Allowed: \`${row.swearing}\`\nStaff Role: \`${sr}\`\nUsing Staff Role: \`${row.useRole}\`\n*Use **g s swears** for a list of swears, and **g s staff** for a list of staff*`);
 				}
 				if (args[0] == 's' || args[0] == 'setting' || args[0] == 'option' || args[0] == 'o') {
 					if (args[1] != 'levels' && args[1] != 'list' && args[1] != 'l' && args[1] != 'prefix' && args[1] != 'staff' && args[1] != 'swears' && args[1] != 'swearing' && args[1] != 'staffRole' && args[1] != 'useRole') return message.channel.send('Invalid argument. For a list, type .g s l');

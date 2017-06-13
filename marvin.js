@@ -65,7 +65,7 @@ bot.on('ready', () => {
 	funcs.games(bot);
 	bot.prefixes = {};
 	prefixesUpdate();
-	setInterval(() => {prefixesUpdate();}, 15000);
+	setInterval(() => {prefixesUpdate();}, 10000);
 });
 
 bot.on('message', message => {
