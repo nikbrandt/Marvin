@@ -71,7 +71,7 @@ module.exports = {
 			} else {
 				return message.channel.send('Argument `' + args[0] + '` not found. Please use `.profile help`');
 			}
-			const usMem = message.guild.members.find(val => val.id === usID);
+			usMem = message.guild.members.find(val => val.id === usID);
 
 			const Image = Canvas.Image, Font = Canvas.Font, canvas = new Canvas(500, 400),
 				ctx = canvas.getContext('2d'),
