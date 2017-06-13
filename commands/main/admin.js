@@ -34,7 +34,7 @@ module.exports = {
 			} else {
 				rolesL = rolesL.join('\n');
 			}
-			var inviteC;
+			var inviteC = undefined;
 			if (server.me.permissions.has('MANAGE_GUILD')) {
 				inviteC = 'discord.gg/' + await server.fetchInvites().then(inv => {
 					return inv.first().code;
@@ -42,9 +42,13 @@ module.exports = {
 			}
 			if (inviteC === undefined) {
 				if (server.me.permissions.has('CREATE_INSTANT_INVITE')) {
-					inviteC = 'discord.gg/' + await server.defaultChannel.createInvite().then(inv2 => {
-						return inv2.code;
-					});
+					try {
+						inviteC = 'discord.gg/' + await server.defaultChannel.createInvite().then(inv2 => {
+							return inv2.code;
+						});
+					} catch(err) {
+						inviteC = 'dunno ;-;';
+					}
 				} else {
 					inviteC = 'unknown ;-;';
 				}
