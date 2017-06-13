@@ -1,19 +1,19 @@
-module.exports = {
+module.exports = {
 	xp: function(command, message, sql, args, suffix, Discord, colors, bot, config, findMember) {
 		if (command == 'xp') {
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
 				if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
 				if (row3.levels == 'false' || row3.levels === false) return message.channel.send('This guild\'s staff have disabled leveling.');
-				var memObj = findMember(message, args, suffix);
-				var usID;
+				let memObj = findMember(message, args, suffix);
+				let usID;
 				if (memObj === undefined) usID = message.author.id;
 				else usID = memObj.user.id;
-				var gID = message.guild.id;
-				var us = bot.users.get(usID);
+				let gID = message.guild.id;
+				let us = bot.users.get(usID);
 				sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => { // eslint-disable-line quotes
 					sql.get(`SELECT * FROM moderation WHERE userId = '${usID}'`).then(row2 => {
-						if (!row2 || !row) return message.channel.send(`**${us.username}** has no XP.`);
-						var nl = config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1);
+						if (!row2) return message.channel.send(`**${us.username}** has no XP.`);
+						const nl = config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1);
 						message.channel.send(`**${us.username}** (*${row2.gXP} global XP*)\nXP: \`${row.xpCurrent}\` | Total XP: \`${row.xpTotal}\` | Level: \`${row.xpLevel}\`\n\`${Math.floor(config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1)) - row.xpCurrent}\` XP to level ${row.xpLevel + 1} (${Math.round(row.xpCurrent / nl * 1000) / 10}%)`);
 					});
 				});
@@ -21,19 +21,24 @@ module.exports = {
 		}
 	},
 	xpinfo: (command, message, config, colors) => {
-		if (command == 'xpinfo' || command == 'xi') {
-			message.channel.send({embed: {
-				color: colors[Math.floor(Math.random() * colors.length)],
-				title: 'Leveling System',
-				description: 'Marvin has a leveling system that gives you xp and levels you up as you type messages. To disable this in your guild, do `.g s levels false`.',
-				fields: [{
-					name: 'Current Options',
-					value: `XP Revolving around **${config.xp.base}**, for a range of **${config.xp.base - config.xp.min} to ${config.xp.base + config.xp.max}** XP per message.\nXP is added every **${config.xp.xpAdd / 1000}** seconds\nTo achieve level 1, you need **${config.xp.levelOne}** XP.\nEach level requires **${config.xp.eqMult}**x as much xp as the previous.\nThe maximum your xp can be multiplied for activity is **${config.xp.maxMult}**x`
-				}]
-			}});
+		if (command === 'xpinfo' || command === 'xi') {
+			message.channel.send({
+				embed: {
+					color: colors[Math.floor(Math.random() * colors.length)],
+					title: 'Leveling System',
+					description: 'Marvin has a leveling system that gives you xp and levels you up as you type messages. To disable this in your guild, do `.g s levels false`.',
+					fields: [{
+						name: 'Current Options',
+						value: `XP Revolving around **${config.xp.base}**, for a range of **${config.xp.base - config.xp.min} to ${config.xp.base + config.xp.max}** XP per message.\nXP is added every **${config.xp.xpAdd / 1000}** seconds\nTo achieve level 1, you need **${config.xp.levelOne}** XP.\nEach level requires **${config.xp.eqMult}**x as much xp as the previous.\nThe maximum your xp can be multiplied for activity is **${config.xp.maxMult}**x`
+					}]
+				}
+			});
 		}
 	},
 	leaderboard: async (command, message, args, sql, bot) => {
+		const us = ['', '', '', '', ''];
+		let top5;
+
 		function usVal(num) {
 			if (top5[num] === undefined) {
 				us[num] = '';
@@ -41,6 +46,7 @@ module.exports = {
 				us[num] = `${bot.users.get(top5[num].userId).username} | Level ${top5[num].xpLevel} | ${top5[num].xpTotal} XP`;
 			}
 		}
+
 		function usValG(num) {
 			if (top5[num] === undefined) {
 				us[num] = '';
@@ -71,7 +77,9 @@ module.exports = {
 					}
 				}
 				top5 = await sql.all('SELECT * FROM guildModeration WHERE guildId = \'' + gID + '\'').then(rows => {
-					return rows.sort(function(a, b) { return a.xpTotal < b.xpTotal ? 1 : -1; }).slice(0, 5);
+					return rows.sort(function (a, b) {
+						return a.xpTotal < b.xpTotal ? 1 : -1;
+					}).slice(0, 5);
 				});
 				if (top5[0] === undefined) {
 					us[0] = 'No one has talked yet.. ;-;';
@@ -85,9 +93,11 @@ module.exports = {
 				}
 				message.channel.send(`${bot.guilds.get(gID).name} **Leaderboard**\n👑 **${us[0]}**\n:two: ${us[1]}\n:three: ${us[2]}\n:four: ${us[3]}\n:five: ${us[4]}`);
 			}
-			if (args[0] == 'global' || args[0] == 'g') {
+			if (args[0] === 'global' || args[0] === 'g') {
 				top5 = await sql.all('SELECT * FROM moderation').then(rows => {
-					return rows.sort(function(a, b) { return a.gXP < b.gXP ? 1 : -1; }).slice(0, 5);
+					return rows.sort(function (a, b) {
+						return a.gXP < b.gXP ? 1 : -1;
+					}).slice(0, 5);
 				});
 				usValG(0);
 				usValG(1);
