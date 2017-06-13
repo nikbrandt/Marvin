@@ -48,6 +48,33 @@ function prefixesUpdate() {
 	});
 }
 
+function findMember(message, args, suffix) {
+	var member;
+	if (message.mentions.members.first()) member = message.mentions.members.first();
+	else if (args[0] !== undefined && args[0] != '') {
+		var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.toUpperCase());
+		if (bFindU == undefined) bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.toUpperCase());
+		if (bFindU == undefined) return undefined;
+		else member = bFindU;
+	} else member = message.member;
+	return {user: member.user,member: member};
+}
+
+function checkStaff(member) {
+	sql.get(`SELECT * FROM guildOptions WHERE guildId = ${member.guild.id}`).then(row => {
+		if (!row) {
+			sql.run('INSERT INTO guildOptions (guildId, prefix, levels, swearing, useRole) VALUES (?, ?, ?, ?, ?)', [member.guild.id, '.', 'true', 'true', 'false']);
+			return undefined;
+		}
+		let isStaff = false;
+		if (row.useRole === true && row.staffRole !== null && row.staffRole !== '') {
+			if (member.roles.map(r=>r.id).includes(row.staffRole)) isStaff = true;
+		}
+		if (row.staff.includes(member.id)) isStaff = true;
+		return isStaff;
+	});
+}
+
 bot.on('ready', () => {
 	bot.logLog = bot.channels.get('304441662724243457');
 	console.log('Bot started.');
@@ -56,10 +83,11 @@ bot.on('ready', () => {
 	prefixesUpdate();
 	setInterval(() => {
 		prefixesUpdate();
-	}, 15000);
+	}, 10000);
 });
 
-bot.on('message', message => { // prefix problem :o
+bot.on('message', message => {
+	if (message.channel.type != 'text') return;
 	if (!message.guild.me.permissions.has('SEND_MESSAGES')) return;
 	if (message.author.bot) return;
 	if (message.content.includes('<@' + bot.user.id + '>') && !message.content.startsWith('<@' + bot.user.id + '>') && message.author.id === '179114344863367169') return message.channel.send('Hello master.');
@@ -81,9 +109,7 @@ bot.on('message', message => { // prefix problem :o
 
 	help.help(command, message, bot, suffix, colors);
 
-	if (message.channel.type !== 'text') return;
-
-	// easter eggs
+ // easter eggs
 	eggs.paasta(command, message);
 	eggs.techno(command, message);
 	eggs.gymno(command, message);
@@ -111,8 +137,8 @@ bot.on('message', message => { // prefix problem :o
 	mc.mc(command, message, args, suffix, Discord);
 	other.leet(command, message, leet, args, suffix);
 	other.eval(command, message, suffix, bot, Discord, sql, config);
-	guild.guild(command, message, args, suffix, sql);
-	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config);
+	guild.guild(command, message, args, suffix, sql, findMember, bot);
+	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config, findMember);
 	levels.xpinfo(command, message, config, colors);
 	levels.leaderboard(command, message, args, sql, bot);
 	admin.kys(command, message);

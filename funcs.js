@@ -17,15 +17,15 @@ module.exports = {
 			bot.logLog.send(`**${message.guild.name}** #${message.channel.name} *${message.author.tag}* at ${moment(message.createdTimestamp).format('h:mm:ss a')}\n ${message.content}`);
 		}
 	},
-	levels: function (bot, message, sql, config) {
+	levels: function(bot, message, sql, config) {
+		if (message.author.bot) return;
+		if (message.channel.type != 'text') return;
+		if (message.channel.id == '304429222477299712') return;
 		sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
 			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
-			if (row3.levels === 'false' || row3.levels === false) return;
-			if (message.author.bot) return;
-			if (message.channel.type !== 'text') return;
-			if (message.channel.id === '304429222477299712') return;
-			const usID = message.author.id;
-			const gID = message.guild.id;
+			if (row3.levels == 'false' || row3.levels === false) return;
+			var usID = message.author.id;
+			var gID = message.guild.id;
 			sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => {
 				sql.get(`SELECT * FROM moderation WHERE userId = '${usID}'`).then(row2 => {
 					if (!row) sql.run(`INSERT INTO guildModeration (guildId, userId, bans, kicks, mutes, warns, banEnd, muteEnd, xpLevel, xpTotal, xpCurrent, lastMessage, lastXP, xpM) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [gID, usID, 0, 0, 0, 0, null, null, 0, 0, 0, Date.now(), Date.now(), 1]);

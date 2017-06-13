@@ -1,29 +1,16 @@
-module.exports = {
-	xp: function (command, message, sql, args, suffix, Discord, colors, bot, config) {
-		if (command === 'xp') {
+module.exports = {
+	xp: function(command, message, sql, args, suffix, Discord, colors, bot, config, findMember) {
+		if (command == 'xp') {
 			sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
 				if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
-				if (row3.levels === 'false' || row3.levels === false) return message.channel.send('This guild\'s staff have disabled leveling.');
+				if (row3.levels == 'false' || row3.levels === false) return message.channel.send('This guild\'s staff have disabled leveling.');
+				let memObj = findMember(message, args, suffix);
 				let usID;
-				if (message.mentions.users.first()) {
-					usID = message.mentions.users.first().id;
-				} else if (args[0] !== undefined && args[0] !== '') {
-					let bFindU = message.guild.members.find(val => val.user.username.toUpperCase() === suffix.toUpperCase());
-					if (bFindU === undefined) {
-						bFindU = message.guild.members.find(val => val.displayName.toUpperCase() === suffix.toUpperCase());
-					}
-					if (bFindU === undefined) {
-						return message.channel.send('Could not find user by the name of `' + args[0] + '`');
-					} else {
-						usID = bFindU.id;
-					}
-				} else {
-					usID = message.author.id;
-				}
-				const gID = message.guild.id;
-				const us = bot.users.get(usID);
+				if (memObj === undefined) usID = message.author.id;
+				else usID = memObj.user.id;
+				let gID = message.guild.id;
+				let us = bot.users.get(usID);
 				sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => { // eslint-disable-line quotes
-					if (!row) return message.channel.send(`**${us.username}** has no XP.`);
 					sql.get(`SELECT * FROM moderation WHERE userId = '${usID}'`).then(row2 => {
 						if (!row2) return message.channel.send(`**${us.username}** has no XP.`);
 						const nl = config.xp.levelOne * Math.pow(config.xp.eqMult, row.xpLevel + 1);
@@ -67,16 +54,19 @@ module.exports = {
 				us[num] = `${bot.users.get(top5[num].userId).username} | ${top5[num].gXP} XP`;
 			}
 		}
-
-		if (command === 'leaderboard' || command === 'lb') {
-			if (args[0] === undefined || args[0] === 'server' || args[0] === 'local' || args[0] === 'guild' || args[0].length === 18) {
-				let gID = message.guild.id;
-				if (message.author.id === '179114344863367169') {
+		if (command == 'leaderboard' || command == 'lb') {
+			var top5;
+			var us = ['', '', '', '', ''];
+			if (args[0] === undefined || args[0] == 'server' || args[0] == 'local' || args[0] == 'guild' || args[0].length == 18) {
+				var gID = message.guild.id;
+				if (message.author.id == '179114344863367169') {
 					if (args[1] === undefined) {
-						gID = bot.guilds.get(args[0]).id;
-						if (gID === undefined) {
-							message.channel.send('that\'s not a guild lol');
-							return gID = message.guild.id;
+						if (args[0] !== undefined) {
+							gID = bot.guilds.get(args[0]).id;
+							if (gID === undefined) {
+								message.channel.send('that\'s not a guild lol');
+								return gID = message.guild.id;
+							}
 						}
 					} else {
 						gID = bot.guilds.get(args[1]).id;
