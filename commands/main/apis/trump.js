@@ -23,11 +23,11 @@ module.exports = {
 									value: trump.value,
 									inline: true
 								},
-									{
-										name: 'Tags',
-										value: trump.tags.toString(),
-										inline: true
-									}]
+								{
+									name: 'Tags',
+									value: trump.tags.toString(),
+									inline: true
+								}]
 							}
 						});
 					} else {
@@ -57,11 +57,11 @@ module.exports = {
 									value: trump._embedded.quotes[trumpN].value,
 									inline: true
 								},
-									{
-										name: 'Tags',
-										value: trump._embedded.quotes[trumpN].tags.toString(),
-										inline: true
-									}]
+								{
+									name: 'Tags',
+									value: trump._embedded.quotes[trumpN].tags.toString(),
+									inline: true
+								}]
 							}
 						});
 					} else {

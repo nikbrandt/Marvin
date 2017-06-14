@@ -83,26 +83,26 @@ module.exports = {
 					name: 'Quick Replies',
 					value: '`.marvin` - Get random info about the bot \n`.lenny` - Here I am, brain the size of a planet, posting lennies on discord. \n`.L` - Make an L of L\'s (Stolen from 0kx because his bot went down) \n`.invite` - Invite me to your server'
 				},
-					{
-						name: 'Bot Interactions',
-						value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`\n`.dice [amount] [sides]` - Roll some dice.'
-					},
-					{
-						name: 'API',
-						value: '`.8ball` - Obviously the most trustworthy source for answers for your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot.\n`.xkcd` - Get an xkcd comic, possibly using OkxBot\n`.minecraft` - Commands to do with Minecraft. `.mc h` for more info.\n`.dog` - doggo :p\n`.cat` or `.kitty` - INSTANT CUTENESS!'
-					},
-					{
-						name: 'Other',
-						value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.xpinfo` - See info about bot leveling\n`.server setting` - Change server settings. As of now, only levels.'
-					},
-					{
-						name: 'Coming Soon',
-						value: 'View the bot\'s [trello](https://trello.com/b/lj6U1egX/marvin).'
-					},
-					{
-						name: '.',
-						value: 'Suggest ideas to Gymnophoria#8146\n**Technocoder** has been a huge help with this bot, thanks! \n*When typing commands, remove the <>*'
-					}]
+				{
+					name: 'Bot Interactions',
+					value: '`.say <text>` - Yeah, I guess I\'ll repeat what you say\n`.joke <add>` Say or add a joke\n`.profile` - Profiles system, more info with `.p h`\n`.dice [amount] [sides]` - Roll some dice.'
+				},
+				{
+					name: 'API',
+					value: '`.8ball` - Obviously the most trustworthy source for answers for your problems \n`.choose` - Perhaps the best/funniest/creepiest/idk way to say yes or no \n`.ud <term>` or `.urbandictionary <term>` - Search the amazing urban dictionary! \n`.trump [term]` - Get a quote from the president about [term] (or get a random quote)\n`.calc <expression>` - Simplify an expression (if you legitimately need other operations such as sine or cos, tell me) \n`.ss <url> [width] [height]` - Take a screenshot of a page\n`.cb` or `.cleverbot <text>` - Talk with cleverbot.\n`.xkcd` - Get an xkcd comic, possibly using OkxBot\n`.minecraft` - Commands to do with Minecraft. `.mc h` for more info.\n`.dog` - doggo :p\n`.cat` or `.kitty` - INSTANT CUTENESS!'
+				},
+				{
+					name: 'Other',
+					value: '`.l33t` or `.leet` - Translate your text to leet speak \n`.xp [user]` - View you or someone else\'s XP. \n`.xpinfo` - See info about bot leveling\n`.server setting` - Change server settings. As of now, only levels.'
+				},
+				{
+					name: 'Coming Soon',
+					value: 'View the bot\'s [trello](https://trello.com/b/lj6U1egX/marvin).'
+				},
+				{
+					name: '.',
+					value: 'Suggest ideas to Gymnophoria#8146\n**Technocoder** has been a huge help with this bot, thanks! \n*When typing commands, remove the <>*'
+				}]
 			}
 		});
 	},
@@ -131,22 +131,22 @@ module.exports = {
 					name: 'Quick Replies',
 					value: 'Replies that are always the same or slightly different'
 				},
-					{
-						name: 'Bot Interactions',
-						value: 'In which the bot directly interacts with your text'
-					},
-					{
-						name: 'API',
-						value: 'Commands that use an internet API to work (some of the more fun ones)'
-					},
-					{
-						name: 'Other',
-						value: 'All commands that do not fit into the above categories'
-					},
-					{
-						name: 'Info',
-						value: 'List information about the bot'
-					}]
+				{
+					name: 'Bot Interactions',
+					value: 'In which the bot directly interacts with your text'
+				},
+				{
+					name: 'API',
+					value: 'Commands that use an internet API to work (some of the more fun ones)'
+				},
+				{
+					name: 'Other',
+					value: 'All commands that do not fit into the above categories'
+				},
+				{
+					name: 'Info',
+					value: 'List information about the bot'
+				}]
 			}
 		});
 	}

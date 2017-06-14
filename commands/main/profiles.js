@@ -77,12 +77,12 @@ module.exports = {
 				ctx = canvas.getContext('2d'),
 				request = require('request');
 
-			const CabinCondensed = new Font('CabinCondensed', './media/fonts/name-CabinCondensed-Regular.ttf'); // names
-			const MuliRegular = new Font('MuliRegular', './media/fonts/heading-Muli-Regular.ttf'); // headings
-			const MuliLight = new Font('MuliLight', './media/fonts/subheading-Muli-Light.ttf'); // subheading
-			const MuliItalic = new Font('MuliItalic', './media/fonts/italics-Muli-LightItalic.ttf'); // italics
-			const MuliExtraLight = new Font('MuliExtraLight', './media/fonts/light-Muli-ExtraLight.ttf'); // extra light
-			const DidactGothic = new Font('DidactGothic', './media/fonts/random-DidactGothic-Regular.ttf'); // random text
+			const CabinCondensed = new Font('CabinCondensed', '../marvinmedia/fonts/name-CabinCondensed-Regular.ttf'); // names
+			const MuliRegular = new Font('MuliRegular', '../marvinmedia/fonts/heading-Muli-Regular.ttf'); // headings
+			const MuliLight = new Font('MuliLight', '../marvinmedia/fonts/subh-Muli-Light.ttf'); // subheading
+			const MuliItalic = new Font('MuliItalic', '../marvinmedia/fonts/italics-Muli-LightItalic.ttf'); // italics
+			const MuliExtraLight = new Font('MuliExtraLight', '../marvinmedia/fonts/light-Muli-ExtraLight.ttf'); // extra light
+			const DidactGothic = new Font('DidactGothic', '../marvinmedia/fonts/random-DidactGothic-Regular.ttf'); // random text
 			ctx.addFont(CabinCondensed);
 			ctx.addFont(MuliRegular);
 			ctx.addFont(MuliLight);
@@ -153,11 +153,11 @@ module.exports = {
 				let lF;
 
 				if (row.image === null) {
-					fs.readFile('./media/images/npb.png', function (err, npb) {
+					fs.readFile('../marvinmedia/images/npb.png', function (err, npb) {
 						if (err) throw err;
 						const img = new Image;
 						img.src = npb;
-						ctx.drawImage(img, 20, 10, img.width / 2, img.height / 2);
+						ctx.drawImage(img, 15, 10);
 					});
 					request(requestS1, function (err, response, body) {
 						const img = new Image;

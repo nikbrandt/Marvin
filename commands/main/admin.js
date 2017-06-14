@@ -40,8 +40,8 @@ module.exports = {
 			let inviteC = undefined;
 			if (server.me.permissions.has('MANAGE_GUILD')) {
 				inviteC = 'discord.gg/' + await server.fetchInvites().then(inv => {
-						return inv.first().code;
-					});
+					return inv.first().code;
+				});
 			}
 			if (inviteC === undefined) {
 				if (server.me.permissions.has('CREATE_INSTANT_INVITE')) {
@@ -76,21 +76,21 @@ module.exports = {
 						value: `**Owner**: ${server.owner.displayName} ([id](${server.ownerID}))\nHas **${server.memberCount}** users, **${sOnA}** online, **${sBotA}** are bots.\nJoined on **${moment(server.joinedTimestamp).format('MMM Do YYYY')}** (${moment(server.joinedTimestamp).fromNow()})\n**Invite**: ${inviteC}`,
 						inline: true
 					},
-						{
-							name: 'Importantish',
-							value: `**Default Channel**: ${server.defaultChannel.name} ([id](${server.defaultChannel.id}))\n**Default Role**: [id](${server.defaultRole.id})		**Filter Level**: ${server.explicitContentFilter}\n**Nickname**: ${server.me.nickname}\n**Channels**: ${server.channels.size} (${tChans} text, ${vChans} voice)`,
-							inline: true
-						},
-						{
-							name: 'Roles',
-							value: `${rolesL}`,
-							inline: true
-						},
-						{
-							name: 'Useless :p',
-							value: `**Created on**: ${moment(server.createdTimestamp).format('MMM Do YYYY')} (${moment(server.createdTimestamp).fromNow()})\n**Region**: ${server.region}\n**AFK Channel**: [id](${server.afkChannelID})\nHas **${server.emojis.size}** emojis\n**Verification Level**: ${server.verificationLevel}\n**Available**: ${server.available}\nHas **${roleA}** roles.\n\n[Icon URL](${server.iconURL})`,
-							inline: true
-						}]
+					{
+						name: 'Importantish',
+						value: `**Default Channel**: ${server.defaultChannel.name} ([id](${server.defaultChannel.id}))\n**Default Role**: [id](${server.defaultRole.id})		**Filter Level**: ${server.explicitContentFilter}\n**Nickname**: ${server.me.nickname}\n**Channels**: ${server.channels.size} (${tChans} text, ${vChans} voice)`,
+						inline: true
+					},
+					{
+						name: 'Roles',
+						value: `${rolesL}`,
+						inline: true
+					},
+					{
+						name: 'Useless :p',
+						value: `**Created on**: ${moment(server.createdTimestamp).format('MMM Do YYYY')} (${moment(server.createdTimestamp).fromNow()})\n**Region**: ${server.region}\n**AFK Channel**: [id](${server.afkChannelID})\nHas **${server.emojis.size}** emojis\n**Verification Level**: ${server.verificationLevel}\n**Available**: ${server.available}\nHas **${roleA}** roles.\n\n[Icon URL](${server.iconURL})`,
+						inline: true
+					}]
 				}
 			});
 		}
@@ -168,11 +168,11 @@ module.exports = {
 						value: `**Joined on**: ${moment(user.createdTimestamp).format('MMM Do YYYY')} (${moment(user.createdTimestamp).fromNow()})\n**Presence**: ${user.presence.status}\n**Game**: \`${game}\`\n**ID**: ${user.id}\n**Bot**: ${user.bot}`,
 						inline: true
 					},
-						{
-							name: 'Member Info',
-							value: `**Nickname**: ${member.nickname}\n**Muted**: ${muteStatus}\n**Deafened**: ${deafStatus}\n**Roles**: ${roles}\n**Joined on**: ${moment(member.joinedTimestamp).format('MMM Do YYYY')} (${moment(member.joinedTimestamp).fromNow()})`,
-							inline: true
-						}]
+					{
+						name: 'Member Info',
+						value: `**Nickname**: ${member.nickname}\n**Muted**: ${muteStatus}\n**Deafened**: ${deafStatus}\n**Roles**: ${roles}\n**Joined on**: ${moment(member.joinedTimestamp).format('MMM Do YYYY')} (${moment(member.joinedTimestamp).fromNow()})`,
+						inline: true
+					}]
 				}
 			});
 		}

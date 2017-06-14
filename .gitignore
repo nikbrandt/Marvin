@@ -1,5 +1,3 @@
-media
 node_modules
-config.json
-.eslintrc.json
 launch.command
+.DS_Store

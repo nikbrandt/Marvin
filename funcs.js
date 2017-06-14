@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 module.exports = {
 	instadelete: function (bot, message) {
-		if (message.channel.id !== 304430648708300800) return;
+		if (message.channel.id !== '304430648708300800') return;
 		message.delete(10000);
 	},
 	logger: function (bot, message, moment) {
@@ -22,16 +22,16 @@ module.exports = {
 		if (message.channel.type != 'text') return;
 		if (message.channel.id == '304429222477299712') return;
 		sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
-			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels) VALUES (?, ?, ?)`, [message.guild.id, '.', 'true']); //eslint-disable-line quotes
+			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels, swearing) VALUES (?, ?, ?, ?)`, [message.guild.id, '.', 'true', 'true']); //eslint-disable-line quotes
 			if (row3.levels == 'false' || row3.levels === false) return;
-			var usID = message.author.id;
-			var gID = message.guild.id;
+			let usID = message.author.id;
+			let gID = message.guild.id;
 			sql.get(`SELECT * FROM guildModeration WHERE userId = '${usID}' AND guildId = '${gID}'`).then(row => {
 				sql.get(`SELECT * FROM moderation WHERE userId = '${usID}'`).then(row2 => {
 					if (!row) sql.run(`INSERT INTO guildModeration (guildId, userId, bans, kicks, mutes, warns, banEnd, muteEnd, xpLevel, xpTotal, xpCurrent, lastMessage, lastXP, xpM) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [gID, usID, 0, 0, 0, 0, null, null, 0, 0, 0, Date.now(), Date.now(), 1]);
 					if (!row2) sql.run(`INSERT INTO moderation (userId, gBans, gKicks, gMutes, gWarns, gCases, gXP) VALUES (?, ?, ?, ?, ?, ?, ?)`, [usID, 0, 0, 0, 0, 0, 0]);
 					if (!row || !row2) return;
-					if (Date.now() - row.lastXP < config.xp.xpAdd) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = ${usID} AND guildId = ${gID}`);
+					if (Date.now() - row.lastXP < config.xp.xpAdd) return sql.run(`UPDATE guildModeration SET lastMessage = ${Date.now()} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 					let xpM;
 					if (Date.now() - row.lastMessage < 15000) {
 						xpM = row.xpM * 1.02;
@@ -43,7 +43,7 @@ module.exports = {
 						xpM = 1;
 					}
 					if (xpM > config.xp.maxMult) xpM = config.xp.maxMult;
-					sql.run(`UPDATE guildModeration SET xpM = ${xpM} WHERE userId = ${usID} AND guildId = ${gID}`);
+					sql.run(`UPDATE guildModeration SET xpM = ${xpM} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 					const xpMN = Math.round(xpM * config.xp.base);
 					const xpMin = xpMN - config.xp.min;
 					const xpMax = xpMN + config.xp.max;
@@ -58,7 +58,7 @@ module.exports = {
 					}
 					if (row.xpTotal + xpAdd >= lvArray[xpL] && xpL + 1 !== row.xpLevel) {
 						sql.run(`UPDATE guildModeration SET xpLevel = ${xpL + 1} WHERE userId = '${usID}' AND guildId = '${gID}'`);
-						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpTotal - lvArray[xpL]} WHERE userId = '${usID}' AND guildId = '${gID}'`);
+						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpTotal + xpAdd - lvArray[xpL]} WHERE userId = '${usID}' AND guildId = '${gID}'`);
 						message.channel.send(`Good job, <@${message.author.id}>, you've achieved level **${xpL + 1}**!`);
 					} else {
 						sql.run(`UPDATE guildModeration SET xpCurrent = ${row.xpCurrent + xpAdd} WHERE userId = '${usID}' AND guildId = '${gID}'`);

@@ -1,7 +1,7 @@
 const request = require('request');
 const moment = require('moment');
 
-function server(channel, server, Discord) {
+function server(channel, server, Discord, args) {
 	request('https://mcapi.ca/query/' + server + '/info', (error, response, body) => {
 		if (!error && response.statusCode === 200) {
 			let si = JSON.parse(body);
@@ -38,7 +38,7 @@ function status(channel) {
 		}
 	});
 }
-function skin(channel) {
+function skin(channel, args) {
 	channel.send('Render Courtesy of Crafatar', {files: ['https://crafatar.com/renders/body/' + args[1] + '?overlay&.png']});
 }
 function uuid(channel, name) {
@@ -82,23 +82,23 @@ function nameHistoryByUUID(channel, uuid) {
 	});
 }
 
-module.exports = {
+module.exports = { /* eslint-disable indent*/
 	mc: async function (command, message, args, suffix, Discord) {
 		if(!(command === 'mc' || command === 'minecraft')) return;
 		switch (args[0]) {
 			case undefined:
-				return message.channel.send('Please use either `server`, `status`, `skin`, `uuid`, or `history`');
+				message.channel.send('Please use either `server`, `status`, `skin`, `uuid`, or `history`');
 				break;
 			case 'server':
 				if (args[1] === undefined) return message.channel.send('Please specify a server to check.');
-				server(message.channel, args[1], Discord);
+				server(message.channel, args[1], Discord, args);
 				break;
 			case 'status':
 				status(message.channel);
 				break;
 			case 'skin':
 				if (args[1] === undefined) return message.channel.send('You didn\'t specify a skin to send..');
-				skin(message.channel);
+				skin(message.channel, args);
 				break;
 			case 'uuid':
 				if (args[1] === undefined) return message.channel.send('I can\'t find the UUID of no one..');
@@ -107,7 +107,7 @@ module.exports = {
 			case 'history':
 			case 'names':
 				if (args[1].length === 32) {
-					nameHistoryByUUID(message.channel, args[1])
+					nameHistoryByUUID(message.channel, args[1]);
 				} else if (args[1].length > 2 && args[1].length < 16) {
 					nameHistoryByName(message.channel, args[1]);
 					return;
