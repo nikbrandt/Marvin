@@ -1,0 +1,32 @@
+{
+	"parser": "babel-eslint",
+	"env": {
+		"node": true
+	},
+	"extends": "eslint:recommended",
+	"parserOptions": {
+		"emcaVersion": 7,
+		"sourceType": "module"
+	},
+	"rules": {
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"semi": [
+			"warn",
+			"always"
+		],
+		"no-unused-vars": "off",
+		"no-console": "off",
+		"strict": 0
+	}
+}

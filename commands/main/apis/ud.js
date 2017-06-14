@@ -17,21 +17,21 @@ module.exports = {
 									value: uD.list[uDChoose].definition,
 									inline: true
 								},
-									{
-										name: 'Example',
-										value: '*' + uD.list[uDChoose].example + '*',
-										inline: true
-									},
-									{
-										name: 'Author',
-										value: uD.list[uDChoose].author,
-										inline: true
-									},
-									{
-										name: 'Ratings',
-										value: ':thumbsup: ' + uD.list[uDChoose].thumbs_up + ' :thumbsdown: ' + uD.list[uDChoose].thumbs_down,
-										inline: true
-									}]
+								{
+									name: 'Example',
+									value: '*' + uD.list[uDChoose].example + '*',
+									inline: true
+								},
+								{
+									name: 'Author',
+									value: uD.list[uDChoose].author,
+									inline: true
+								},
+								{
+									name: 'Ratings',
+									value: ':thumbsup: ' + uD.list[uDChoose].thumbs_up + ' :thumbsdown: ' + uD.list[uDChoose].thumbs_down,
+									inline: true
+								}]
 							}
 						});
 					} else {

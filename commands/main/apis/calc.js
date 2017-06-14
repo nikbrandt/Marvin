@@ -21,11 +21,11 @@ module.exports = {
 								value: newton.expression,
 								inline: true
 							},
-								{
-									name: 'Result',
-									value: newton.result,
-									inline: true
-								}]
+							{
+								name: 'Result',
+								value: newton.result,
+								inline: true
+							}]
 						}
 					});
 				} else {

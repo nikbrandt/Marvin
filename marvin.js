@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 // config access
-const config = require('./config.json');
+const config = require('../marvinmedia/config.json');
 // ALL THE MODULES
 const cleverbot = require('cleverbot.io');
 const clever = new cleverbot(config.clever.user, config.clever.key);
@@ -38,7 +38,7 @@ const mc = require('./commands/main/apis/mc.js');
 
 const colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
-sql.open('./media/main.sqlite');
+sql.open('../marvinmedia/main.sqlite');
 
 function prefixesUpdate() {
 	sql.all('SELECT * FROM guildOptions').then(rows => {
@@ -148,7 +148,7 @@ bot.on('message', message => {
 	admin.sendMessage(command, message, bot, args, suffix);
 	admin.logger(command, message, bot, args);
 	admin.userInfo(command, message, bot, args, moment);
-	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs);
+	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs, findMember);
 });
 // other stuffs with message event
 bot.on('message', message => {
