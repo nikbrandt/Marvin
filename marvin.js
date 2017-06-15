@@ -15,6 +15,7 @@ const leet = require('leet');
 const Canvas = require('canvas');
 const moment = require('moment');
 const numtoword = require('number-to-words');
+const duration = require('duration-js');
 // command accesss
 const eggs = require('./commands/eggs.js');
 const coms1 = require('./commands/coms1.js');
@@ -35,6 +36,9 @@ const levels = require('./commands/main/levels.js');
 const guild = require('./commands/main/guilds.js');
 const admin = require('./commands/main/admin.js');
 const mc = require('./commands/main/apis/mc.js');
+const mod = {
+	ban: require('./commands/main/moderation/ban.js').ban
+};
 
 const colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00ed7e, 0x00edc9, 0x00c5ed, 0x008eed, 0x004bed, 0x3f00ed, 0x8a00ed, 0xc100ed, 0xed00e1, 0xed0072];
 
@@ -61,18 +65,39 @@ function findMember(message, args, suffix) {
 }
 
 function checkStaff(member) {
-	sql.get(`SELECT * FROM guildOptions WHERE guildId = ${member.guild.id}`).then(row => {
+	return sql.get(`SELECT * FROM guildOptions WHERE guildId = '${member.guild.id}'`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO guildOptions (guildId, prefix, levels, swearing, useRole) VALUES (?, ?, ?, ?, ?)', [member.guild.id, '.', 'true', 'true', 'false']);
 			return undefined;
 		}
 		let isStaff = false;
-		if (row.useRole === true && row.staffRole !== null && row.staffRole !== '') {
+		if (row.useRole == 'true' && row.staffRole !== null) {
 			if (member.roles.map(r=>r.id).includes(row.staffRole)) isStaff = true;
 		}
-		if (row.staff.includes(member.id)) isStaff = true;
+		if (row.staff && row.staff !== '' && row.staff.includes(member.id)) isStaff = true;
 		return isStaff;
 	});
+}
+
+function checkLog(guild) {
+	let l = guild.channels.find('name', 'log');
+	let lc = guild.channels.find('name', 'log-channel');
+	let bl = guild.channels.find('name', 'bot-log');
+	if (l) return guild.channels.find('name', 'log');
+	if (lc) return guild.channels.find('name', 'log-channel');
+	if (bl) return guild.channels.find('name', 'bot-log');
+	return false;
+}
+
+function addNumSQL(table, option, num, where) {
+	sql.get(`SELECT * FROM ${table} ${where}`).then(row => {
+		sql.run(`UPDATE ${table} SET ${option} = ${row[option] + num}`);
+	});
+}
+
+function annoyLog() {
+	if (Math.floor(Math.random * 10) == 4) return true;
+	else return false;
 }
 
 bot.on('ready', () => {
@@ -149,6 +174,7 @@ bot.on('message', message => {
 	admin.logger(command, message, bot, args);
 	admin.userInfo(command, message, bot, args, moment);
 	profiles.profiles(command, message, args, suffix, sql, Discord, Canvas, fs, findMember);
+	mod.ban(command, message, args, suffix, findMember, checkStaff, checkLog, addNumSQL, Discord, duration, moment);
 });
 // other stuffs with message event
 bot.on('message', message => {
@@ -161,9 +187,5 @@ bot.on('message', message => {
 bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 bot.on('debug', (e) => console.info(e));
-
-process.on('unhandledRejection', err => {
-	console.error('Uncaught Promise Error: \n' + err.stack);
-});
 
 bot.login(config.token);

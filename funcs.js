@@ -22,7 +22,7 @@ module.exports = {
 		if (message.channel.type != 'text') return;
 		if (message.channel.id == '304429222477299712') return;
 		sql.get(`SELECT * FROM guildOptions WHERE guildId = ${message.guild.id}`).then(row3 => { //eslint-disable-line quotes
-			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels, swearing) VALUES (?, ?, ?, ?)`, [message.guild.id, '.', 'true', 'true']); //eslint-disable-line quotes
+			if (!row3) return sql.run(`INSERT INTO guildOptions (guildId, prefix, levels, swearing, useRole) VALUES (?, ?, ?, ?, ?)`, [message.guild.id, '.', 'true', 'true', 'false']); //eslint-disable-line quotes
 			if (row3.levels == 'false' || row3.levels === false) return;
 			let usID = message.author.id;
 			let gID = message.guild.id;

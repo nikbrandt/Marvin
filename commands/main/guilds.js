@@ -15,7 +15,7 @@ module.exports = {
 					else sr = sr1.name;
 					message.channel.send(`Current Options for **${message.guild.name}**:\nLevels enabled: \`${row.levels}\`\nPrefix: \`${row.prefix}\`\nSwearing Allowed: \`${row.swearing}\`\nStaff Role: \`${sr}\`\nUsing Staff Role: \`${row.useRole}\`\n*Use **g s swears** for a list of swears, and **g s staff** for a list of staff*`);
 				}
-				if (args[0] == 's' || args[0] == 'setting' || args[0] == 'option' || args[0] == 'o') {
+				else if (args[0] == 's' || args[0] == 'setting' || args[0] == 'option' || args[0] == 'o') {
 					if (args[1] != 'levels' && args[1] != 'list' && args[1] != 'l' && args[1] != 'prefix' && args[1] != 'staff' && args[1] != 'swears' && args[1] != 'swearing' && args[1] != 'staffRole' && args[1] != 'useRole') return message.channel.send('Invalid argument. For a list, type .g s l');
 					if (args[1] == 'l' || args[1] == 'list') return message.channel.send('Possible options: `levels`, `prefix`, `staff <add/remove>`, `swears <list>`, `swearing <true/false>`, `staffRole <role mention/name>`, `useRole <true/false>`');
 					if (args[1] == 'levels') {
@@ -93,7 +93,7 @@ module.exports = {
 					}
 					sql.run(`UPDATE guildOptions SET ${args[1]} = '${inp}' WHERE guildId = ${gID}`);
 					message.channel.send(`Setting \`${args[1]}\` updated to ${out}`);
-				}
+				} else return message.channel.send('**.server**:\n`setting <*setting*|list>` - Change a setting of this guild\n`settings` view the settings of this server\nanything else - view this message');
 			});
 		}
 	}

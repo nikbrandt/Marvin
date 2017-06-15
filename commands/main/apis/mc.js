@@ -102,7 +102,7 @@ module.exports = { /* eslint-disable indent*/
 				break;
 			case 'uuid':
 				if (args[1] === undefined) return message.channel.send('I can\'t find the UUID of no one..');
-				uuid(args[1]);
+				uuid(message.channel, args[1]);
 				break;
 			case 'history':
 			case 'names':
