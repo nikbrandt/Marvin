@@ -26,7 +26,6 @@ module.exports = {
 			message.channel.awaitMessages(m => m.author.id == message.author.id, {max: 1, time: 15000, errors: ['time']}).then(col => {
 				let msg = col.first();
 				if (msg.guild.me.permissions.has('MANAGE_MESSAGES')) msg.delete(200);
-				if (msg.content == 'cancel' || msg.content == 'c') {return bMsg.edit({embed: canceledEmbed});}
 				if (msg.content == 'cancel' || msg.content == 'c') return bMsg.edit({embed: canceledEmbed});
 				let memObj = findMember(msg, msg.content.split(' '), msg.content);
 				if (!memObj) return bMsg.edit({embed: canceledEmbed.description = 'Member not found.'});
@@ -47,22 +46,24 @@ module.exports = {
 				message.channel.send({embed: bEmbed
 					.setAuthor(memObj.member.displayName, memObj.user.avatarURL)
 					.setDescription('Would you like to add a reason for banning `' + memObj.user.tag + '`?\n<*reason*|no|cancel>\n*Set time with -**format** (e.g. -3d9h)*')
+					.setFooter('Command will be canceled in 30 seconds.')
 				}).then(m => bMsg = m);
 			} else {
 				bMsg = embedO;
 				bMsg.edit({embed: bEmbed
 					.setAuthor(memObj.member.displayName, memObj.user.avatarURL)
 					.setDescription('Would you like to add a reason for banning `' + memObj.user.tag + '`?\n<*reason*|no|cancel>\n*Set time with -**format** (e.g. -3d9h)*')
+					.setFooter('Command will be canceled in 30 seconds.')
 				});
 			}
-			message.channel.awaitMessages(m => m.author.id == message.author.id, {max: 1, time: 15000, errors: ['time']}).then(col => {
+			message.channel.awaitMessages(m => m.author.id == message.author.id, {max: 1, time: 30000, errors: ['time']}).then(col => {
 				let msg = col.first();
 				if (msg.guild.me.hasPermission('MANAGE_MESSAGES')) msg.delete(200);
 				if (msg.content == 'cancel' || msg.content == 'c') return msg.edit({embed: canceledEmbed});
 				if (msg.content == 'no' || msg.content == 'n') return final(memObj, true, false, false, bMsg);
 				if (msg.content.includes('-') && !msg.content.split(' ')[1]) return final(memObj, true, false, true, bMsg, undefined, getTime(msg.content.split('-')[1])); // no reason, but time
 				if (!msg.content.includes('-') && msg.content.length > 0) return final(memObj, true, true, false, bMsg, msg.content); // no time, reason
-				if (msg.content.includes('-') && msg.content.split(' ')[1]) return final(memObj, true, true, true, bMsg, msg.content.split('-')[0], msg.content.split('-')[1]);
+				if (msg.content.includes('-') && msg.content.split(' ')[1]) return final(memObj, true, true, true, bMsg, msg.content.split('-')[0], getTime(msg.content.split('-')[1]));
 			}).catch(col => bMsg.edit({embed: canceledEmbed}));
 		}
 

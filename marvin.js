@@ -53,15 +53,16 @@ function prefixesUpdate() {
 }
 
 function findMember(message, args, suffix) {
-	var member;
+	let member;
 	if (message.mentions.members.first()) member = message.mentions.members.first();
 	else if (args[0] !== undefined && args[0] != '') {
-		var bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.toUpperCase());
-		if (bFindU == undefined) bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.toUpperCase());
-		if (bFindU == undefined) return undefined;
-		else member = bFindU;
+		let bFindU = message.guild.members.find(val => val.user.username.toUpperCase() == suffix.toUpperCase());
+		if (!bFindU) bFindU = message.guild.members.find(val => val.user.tag.toUpperCase() == suffix.toUpperCase());
+		if (!bFindU) bFindU = message.guild.members.find(val => val.displayName.toUpperCase() == suffix.toUpperCase());
+		if (!bFindU) return undefined;
+		member = bFindU;
 	} else member = message.member;
-	return {user: member.user,member: member};
+	return {user: member.user ,member: member};
 }
 
 function checkStaff(member) {
