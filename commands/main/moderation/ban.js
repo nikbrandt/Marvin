@@ -105,6 +105,10 @@ module.exports = {
 			}).catch(err => bMsg.edit({embed: canceledEmbed}));
 		}
 
+		function finish(memObj) {
+			// gotta finish dat bna
+		}
+
 		let bEmbed = new Discord.RichEmbed()
 			.setAuthor('Ban', 'http://i.imgur.com/iq0fi4R.jpg')
 			.setColor(0xff0000)
@@ -113,10 +117,10 @@ module.exports = {
 
 		if (command == 'ban') {
 			if (await checkStaff(message.member) === false) {
-				if (!message.member.permissions.has('BAN_MEMBERS')) message.channel.send('You don\'t have server permission `BAN_MEMBERS`, and are not part of the staff team.');
-				else message.channel.send('You are not part of this guild\'s staff team.');
+				if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send('You don\'t have server permission `BAN_MEMBERS`, and are not part of the staff team.');
+				else return message.channel.send('You are not part of this guild\'s staff team.');
 			}
-			if (!message.guild.me.permissions.has('BAN_MEMBERS')) message.channel.send('I don\'t have server permission `BAN_MEMBERS`.');
+			if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.send('I don\'t have server permission `BAN_MEMBERS`.');
 			let canDel = false;
 			if (message.guild.me.permissions.has('MANAGE_MESSAGES')) canDel = true;
 			if (!args[0]) { // no arguments at all

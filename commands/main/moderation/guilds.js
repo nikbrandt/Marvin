@@ -41,7 +41,7 @@ module.exports = {
 						var memObj = findMember(message, args.slice(3), args.slice(3).join(' '));
 						if (args[2] == 'add') {
 							if (memObj === undefined) return message.channel.send('Could not find anyone by the name of `' + args.slice(3).join(' ') + '`');
-							if (row.staff.includes(memObj.user.id)) return message.channel.send('This user is already a staff member.');
+							if (row.staff && row.staff.includes(memObj.user.id)) return message.channel.send('This user is already a staff member.');
 							if (row.staff === null || row.staff == '') inp = memObj.user.id;
 							else inp = row.staff + ', ' + memObj.user.id;
 							out = 'include `' + memObj.member.displayName + '`';
