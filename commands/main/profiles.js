@@ -73,7 +73,9 @@ module.exports = {
 			}
 			usMem = message.guild.members.find(val => val.id === usID);
 
-			const Image = Canvas.Image, Font = Canvas.Font, canvas = new Canvas(500, 400),
+			const Image = Canvas.Image,
+				Font = Canvas.Font,
+				canvas = new Canvas(500, 400),
 				ctx = canvas.getContext('2d'),
 				request = require('request');
 

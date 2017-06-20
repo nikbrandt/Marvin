@@ -1,8 +1,11 @@
 module.exports = {
-	kys: function (command, message) {
+	kys: function (command, message, bot) {
 		if (command === 'kys') {
 			if (message.author.id !== '179114344863367169') return;
-			process.exit(0);
+			bot.logger.send('Marvin is restarting.');
+			setTimeout(function () {
+				process.exit(0);
+			}, 200);
 		}
 	},
 	listServers: (command, message, bot) => {

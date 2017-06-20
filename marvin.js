@@ -44,6 +44,8 @@ const colors = [0xf44242, 0xed6200, 0xed8e00, 0xede900, 0xa5ed00, 0x47ed00, 0x00
 
 sql.open('../marvinmedia/main.sqlite');
 
+let ready = false;
+
 function prefixesUpdate() {
 	sql.all('SELECT * FROM guildOptions').then(rows => {
 		for (let i = 0; i < rows.length; i++) {
@@ -110,6 +112,11 @@ bot.on('ready', () => {
 	setInterval(() => {
 		prefixesUpdate();
 	}, 10000);
+	bot.owner = bot.users.get('179114344863367169');
+	bot.logger = bot.channels.get('326587425969143808');
+	bot.important = bot.channels.get('326587514494124053');
+	ready = true;
+	bot.logger.send('Marvin has been started.');
 });
 
 bot.on('message', message => {
@@ -167,7 +174,7 @@ bot.on('message', message => {
 	levels.xp(command, message, sql, args, suffix, Discord, colors, bot, config, findMember);
 	levels.xpinfo(command, message, config, colors);
 	levels.leaderboard(command, message, args, sql, bot);
-	admin.kys(command, message);
+	admin.kys(command, message, bot);
 	admin.listServers(command, message, bot);
 	admin.serverInfo(command, message, bot, args, moment);
 	admin.sendMessage(command, message, bot, args, suffix);
@@ -184,9 +191,31 @@ bot.on('message', message => {
 	funcs.levels(bot, message, sql, config);
 });
 
+bot.on('guildCreate', guild => {
+	if (guild.me.permissions.has('SEND_MESSAGES')) guild.defaultChannel.send('Hey there! My name is Marvin, some weird bot. To get all commands, do `.help all`');
+	else (guild.owner.send('I don\'t have permission to send messages in your guild - *' + guild.name + '*'));
+	bot.important.send(`Marvin was added to server **${guild.name}** with owner of **${guild.owner.user.tag}** (${guild.ownerID})`);
+});
+
+bot.on('guildDelete', g => {
+	bot.important.send(`Marvin has just left **${g.name}** that had owner **${g.owner.tag}**`);
+});
+
 // send to console
-bot.on('error', (e) => console.error(e));
-bot.on('warn', (e) => console.warn(e));
-bot.on('debug', (e) => console.info(e));
+bot.on('error', (e) => {
+	console.error(e);
+	if (ready) bot.logger.send(`**Error**: ${e}`);
+});
+bot.on('warn', (e) => {
+	console.warn(e);
+	if (ready) bot.logger.send(`**Warn**: ${e}`);
+});
+bot.on('debug', (e) => {
+	console.info(e);
+	if (ready && !e.includes('eartbeat')) bot.logger.send(`**Info**: ${e}`);
+});
+process.on('unhandledRejection', err => {
+	if (ready) bot.logger.send(`**Unhandled Promise Error**: ${err.stack}`);
+});
 
 bot.login(config.token);
