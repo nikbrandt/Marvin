@@ -12,7 +12,7 @@ module.exports = {
 	eval: function (command, message, suffix, bot, Discord, sql, config) {
 		let evaled;
 		if (command === '.eval') {
-			if (message.author.id !== '179114344863367169') return;
+			if (message.author.id !== '163735744995655680') return;
 			let eErr = false;
 			let eErrM;
 			try {
